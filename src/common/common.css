@@ -1,0 +1,69 @@
+@value mainFont, sizeSmall, fontRegular, fontMedium, fontLarge, weightRegular, weightMedium, weightBold, weightExtraBold from './size.css';
+@value makerBlack, makerWhite, makerDarkGray, makerGray, makerLightGray from './colors.css';
+
+body {
+  font-family: mainFont;
+  color: makerBlack;
+}
+
+/* Typography */
+h1 {
+  font-size: fontLarge;
+  font-weight: weightExtraBold;
+  margin: sizeSmall 0;
+}
+
+h2 {
+  font-size: fontMedium;
+  font-weight: weightBold;
+}
+
+p {
+  font-size: fontMedium;
+  font-weight: weightRegular;
+}
+
+span {
+  font-size: fontRegular;
+  font-weight: weightRegular;
+}
+
+textarea {
+  font-size: fontMedium;
+  font-weight: weightMedium;
+}
+
+textarea::placeholder {
+  font-family: mainFont;
+  font-size: fontMedium;
+  font-weight: weightRegular;
+  color: makerGray;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px makerWhite inset;
+}
+
+button {
+  font-family: mainFont;
+  color: makerWhite;
+}
+
+::-webkit-scrollbar {
+  width: 1rem;
+  z-index: 99;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: makerLightGray;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  margin: sizeRegular;
+  border-radius: 0.5rem;
+  background-color: makerWhite;
+  box-shadow: inset 0px 0px 5px makerLightGray;
+}

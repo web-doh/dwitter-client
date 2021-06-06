@@ -1,0 +1,11 @@
+@import "./common/reset.css";
+@import "./common/common.css";
+@value mainFont, sizeBig from './common/size.css';
+@value makerWhite, makerLightGray from './common/colors.css';
+
+body {
+  margin: 0;
+  padding: 0 sizeBig;
+  background-color: makerLightGray;
+  font-family: mainFont;
+}

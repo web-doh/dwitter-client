@@ -1,0 +1,26 @@
+/* font style */
+@value mainFont: 'Roboto';
+
+/* font size */
+@value fontRegular: 0.9375rem;
+@value fontMedium: 1.125rem;
+@value fontLarge: 1.3125rem;
+
+/* font weigth */
+@value weightLight: 300;
+@value weightRegular: 400;
+@value weightMedium: 500;
+@value weightBold: 600;
+@value weightExtraBold: 700;
+
+/* padding size */
+@value sizeSmall: .25rem;
+@value sizeRegular: .75rem;
+@value sizeMedium: 1rem;
+@value sizeLarge: 1.5rem;
+@value sizeBig: 2rem;
+
+/* img size */
+@value imgSmall: 2.25rem;
+@value imgMedium: 2.5rem;
+@value imgLarge: 3rem;
