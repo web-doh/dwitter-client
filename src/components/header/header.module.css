@@ -1,0 +1,47 @@
+@value sizeSmall, sizeLarge, sizeBig, imgLarge from '../../common/size.css';
+@value makerGray, makerDarkGray, makerLightGray, makerBlue from '../../common/colors.css';
+
+.header,
+.logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  padding: sizeBig;
+  border-bottom: 2px solid makerLightGray;
+}
+
+.image {
+  width: imgLarge;
+  height: imgLarge;
+}
+
+.username {
+  margin-top: sizeSmall;
+  color: makerGray;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  margin-left: sizeLarge;
+  color: makerDarkGray;
+}
+
+.menu:hover,
+.button:hover {
+  cursor: pointer;
+}
+
+.button {
+  padding: 0;
+}
+
+.selected {
+  color: makerBlue;
+}
