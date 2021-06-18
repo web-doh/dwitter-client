@@ -5,11 +5,16 @@ export type TweetAction = ActionType<typeof actions>;
 
 export type tweet = {
   id: number;
-  author: string;
+  username: string;
+  name: string;
   body: string;
   created_at: Date;
   modified_at: Date;
   profile_url?: string;
 };
 
-export type TweetState = Array<tweet>;
+export type TweetState = {
+  tweets: Array<tweet>;
+  isLoading: boolean;
+  errorMessage: string | null;
+};

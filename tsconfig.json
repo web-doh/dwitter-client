@@ -16,5 +16,5 @@
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["src", "../server/util", "../server/hooks"]
 }
