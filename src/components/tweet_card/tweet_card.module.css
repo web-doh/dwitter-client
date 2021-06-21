@@ -1,0 +1,56 @@
+@value sizeSmall, sizeRegular, sizeMedium, sizeBig, fontRegular, weightExtraBold, imgMedium from '../../common/size.css';
+@value makerBlack, makerBlack8, makerDarkGray, makerGray, makerBlue from '../../common/colors.css';
+
+.container {
+  width: 100%;
+  padding: sizeMedium sizeBig;
+  border-bottom: 3px solid makerBlack8;
+}
+
+.contents {
+  margin: 0 auto;
+  display: flex;
+}
+
+.avatar {
+  width: imgMedium;
+  height: imgMedium;
+  line-height: imgMedium;
+}
+
+.text {
+  width: 100%;
+  margin-left: sizeMedium;
+  color: makerGray;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  margin-right: sizeSmall;
+  text-transform: capitalize;
+  font-weight: weightExtraBold;
+  color: makerBlack;
+}
+
+.username:hover {
+  cursor: pointer;
+}
+
+.editBtn {
+  color: makerBlue;
+  font-size: fontRegular;
+}
+
+.deleteBtn {
+  color: makerDarkGray;
+  transform: rotate(90deg);
+}
+
+.body {
+  margin-top: sizeRegular;
+  color: makerDarkGray;
+}

@@ -13,6 +13,10 @@
   border-bottom: 2px solid makerLightGray;
 }
 
+.logo *:hover {
+  cursor: pointer;
+}
+
 .image {
   width: imgLarge;
   height: imgLarge;

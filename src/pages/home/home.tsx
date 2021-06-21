@@ -1,14 +1,5 @@
 import Tweets from "../../components/tweets/tweets";
-import useTweets from "../../hooks/useTweets";
 
-type HomeProps = {};
-
-const Home = () => {
-  const {
-    tweets: { tweets },
-  } = useTweets();
-
-  return <Tweets tweets={tweets} />;
-};
+const Home = () => <Tweets />;
 
 export default Home;

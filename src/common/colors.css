@@ -1,7 +1,8 @@
 @value makerBlack: #000;
+@value makerBlack8: rgba(0, 0, 0, 0.08);
 @value makerWhite: #fff;
 @value makerDarkGray: #333;
 @value makerGray:  #828282;
 @value makerLightGray: #E5E5E5;
 @value makerBlue: #1DA1F2;
-@value makerRed: F21D1D;
+@value makerRed: #F21D1D;

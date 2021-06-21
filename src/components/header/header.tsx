@@ -7,7 +7,7 @@ const Header = () => {
   const location = useLocation().pathname;
   const history = useHistory();
   const {
-    loginUser: { user },
+    loginUser: { loginUser },
     onLogout,
   } = useUser();
 
@@ -19,18 +19,27 @@ const Header = () => {
   };
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <img src="./img/logo.png" alt="Dwitter logo" className={styles.image} />
-        <div>
-          <h1>Dwitter</h1>
-          {user && <span className={styles.username}>@{user.username}</span>}
+      <Link to="/">
+        <div className={styles.logo}>
+          <img
+            src="./img/logo.png"
+            alt="Dwitter logo"
+            className={styles.image}
+          />
+          <div>
+            <h1>Dwitter</h1>
+            {loginUser && (
+              <span className={styles.username}>@{loginUser.username}</span>
+            )}
+          </div>
         </div>
-      </div>
-      {user ? (
+      </Link>
+      {loginUser ? (
         <nav className={styles.nav}>
           <h2
             className={`${styles.menu} ${
-              (location === "/" || location.includes("home")) && styles.selected
+              (location === "/" || location.includes("/home")) &&
+              styles.selected
             }`}
           >
             <Link to="/">Home</Link>
@@ -38,10 +47,10 @@ const Header = () => {
 
           <h2
             className={`${styles.menu} ${
-              location.includes(user.username) && styles.selected
+              location.includes(loginUser.username) && styles.selected
             }`}
           >
-            <Link to={`/${user.username}`}>History</Link>
+            <Link to={`/${loginUser.username}`}>History</Link>
           </h2>
           <button className={styles.button} onClick={logoutHandler}>
             <h2 className={styles.menu}>Logout</h2>

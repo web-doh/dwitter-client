@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { tweet } from "../../modules/tweets/types";
+import parseDate from "../../util/parseDate";
 import Avatar from "../avatar/avatar";
 import styles from "./tweet_card.module.css";
 
@@ -18,25 +20,35 @@ const TweetCard = ({ tweet, isOwner }: TweetCardProps) => {
     modified_at,
   } = tweet;
   return (
-    <li>
+    <li className={styles.container}>
       <section className={styles.contents}>
-        <Avatar url={url} name={name} />
-        <div>
-          <span>{name}</span>
-          <span>@{username}</span>
-          <span>
-            {created_at}
-            {modified_at}
-          </span>
-          <p>{body}</p>
+        <div className={styles.avatar}>
+          <Avatar url={url} name={name} />
         </div>
-      </section>
-      {isOwner && (
-        <section className={styles.controls}>
-          <button className={styles.editBtn}>edit</button>
-          <button className={styles.deleteBtn}>delete</button>
+        <section className={styles.text}>
+          <header className={styles.header}>
+            <div>
+              <span className={styles.name}>{name}</span>
+              <Link to={`/${username}`}>
+                <span className={styles.username}>@{username}</span>
+              </Link>
+              <span>
+                {modified_at === created_at
+                  ? ` · ${parseDate(created_at)}  `
+                  : ` · ${parseDate(modified_at)} 수정됨  `}
+              </span>
+              {isOwner && (
+                <>
+                  <span> · </span>
+                  <button className={styles.editBtn}>Edit</button>
+                </>
+              )}
+            </div>
+            {isOwner && <button className={styles.deleteBtn}>〉</button>}
+          </header>
+          <p className={styles.body}>{body}</p>
         </section>
-      )}
+      </section>
     </li>
   );
 };

@@ -19,7 +19,7 @@ h2 {
 }
 
 p {
-  font-size: fontMedium;
+  font-size: fontRegular;
   font-weight: weightRegular;
 }
 
@@ -29,14 +29,12 @@ span {
 }
 
 textarea {
-  font-size: fontMedium;
-  font-weight: weightMedium;
-}
-
-textarea::placeholder {
   font-family: mainFont;
   font-size: fontMedium;
   font-weight: weightRegular;
+}
+
+textarea::placeholder {
   color: makerGray;
 }
 
@@ -45,6 +43,8 @@ input:-webkit-autofill {
 }
 
 button {
+  padding: 0;
+  margin: 0;
   font-family: mainFont;
   color: makerWhite;
 }

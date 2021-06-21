@@ -6,7 +6,7 @@
 @value fontMedium: 1.125rem;
 @value fontLarge: 1.3125rem;
 
-/* font weigth */
+/* font weight */
 @value weightLight: 300;
 @value weightRegular: 400;
 @value weightMedium: 500;
@@ -24,3 +24,9 @@
 @value imgSmall: 2.25rem;
 @value imgMedium: 2.5rem;
 @value imgLarge: 3rem;
+
+/* button size */
+@value btnSmallWidth: 6.125rem;
+@value btnSmallHeight: 2.625rem;
+@value btnWidth: 6.125rem;
+@value btnHeight: 2.625rem;

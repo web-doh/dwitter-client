@@ -6,14 +6,12 @@ type AvatarProps = {
   name: string;
 };
 
-const Avatar = memo(({ url, name }: AvatarProps) => (
-  <div>
-    {url ? (
-      <img src={url} alt="avatar" className={styles.image} />
-    ) : (
-      <div className={styles.text}>{name.charAt(0)}</div>
-    )}
-  </div>
-));
+const Avatar = memo(({ url, name }: AvatarProps) => {
+  if (url) {
+    return <img src={url} alt="avatar" className={styles.image} />;
+  } else {
+    return <div className={styles.text}>{name.charAt(0).toUpperCase()}</div>;
+  }
+});
 
 export default Avatar;

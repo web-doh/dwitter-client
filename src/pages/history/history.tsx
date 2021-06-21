@@ -1,4 +1,9 @@
+import Tweets from "../../components/tweets/tweets";
+import { useParams } from "react-router-dom";
+
 const History = () => {
-  return <h1>History</h1>;
+  const { username }: { username: string } = useParams();
+
+  return <Tweets username={username} />;
 };
 export default History;

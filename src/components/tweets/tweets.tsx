@@ -1,23 +1,33 @@
-import React from "react";
+import { useEffect } from "react";
+import useTweets from "../../hooks/useTweets";
 import useUser from "../../hooks/useUser";
-import { tweet } from "../../modules/tweets/types";
+import { user } from "../../modules/login_user/types";
 import TweetCard from "../tweet_card/tweet_card";
 
 type TweetsProps = {
-  tweets: Array<tweet>;
+  username?: string;
 };
-
-const Tweets = ({ tweets }: TweetsProps) => {
+const Tweets = ({ username }: TweetsProps) => {
   const {
     loginUser: { loginUser },
-  } = useUser();
+  } = useUser() as { loginUser: { loginUser: user } };
+
+  const {
+    tweets: { tweets },
+    onGetTweets,
+  } = useTweets();
+
+  useEffect(() => {
+    onGetTweets(username);
+  }, [username, loginUser?.username, useTweets]);
+
   return (
     <ul>
       {tweets.map((tweet) => (
         <TweetCard
           key={tweet.id}
           tweet={tweet}
-          isOwner={(loginUser && loginUser.username) === tweet.username}
+          isOwner={loginUser.username === tweet.username}
         />
       ))}
     </ul>

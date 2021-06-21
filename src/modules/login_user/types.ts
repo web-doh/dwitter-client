@@ -5,12 +5,12 @@ export type UserAction = ActionType<typeof actions>;
 
 export type user = {
   username: string;
+  profile_url?: string;
   token: string;
 };
 
 export type UserState = {
   loginUser: user | null;
-  isLoggined: boolean;
   isLoading: boolean;
   errorMessage: string | null;
 };

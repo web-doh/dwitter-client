@@ -66,7 +66,7 @@ export function createAsyncReducer<S, AC extends AnyAsyncActionCreator>(
     [requestType]: (state: S) => ({
       ...state,
       isLoading: true,
-      message: null,
+      errorMessage: null,
     }),
     [failureType]: (
       state: S,
@@ -74,7 +74,7 @@ export function createAsyncReducer<S, AC extends AnyAsyncActionCreator>(
     ) => ({
       ...state,
       isLoading: false,
-      message: action.payload,
+      errorMessage: action.payload,
     }),
   };
 }

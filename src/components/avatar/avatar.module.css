@@ -1,0 +1,13 @@
+@value makerLightGray from '../../common/colors.css';
+
+.image,
+.text {
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+}
+
+.text {
+  background-color: makerLightGray;
+  text-align: center;
+}
