@@ -1,5 +1,5 @@
-@value sizeSmall, sizeRegular, sizeMedium, sizeBig, fontRegular, weightExtraBold, imgMedium from '../../common/size.css';
-@value makerBlack, makerBlack8, makerDarkGray, makerGray, makerBlue from '../../common/colors.css';
+@value sizeSmall, sizeRegular, sizeMedium, sizeBig, fontMedium, weightExtraBold, imgMedium from '../../common/size.css';
+@value makerBlack, makerBlack8, makerGray, makerDarkGray, makerBlue from '../../common/colors.css';
 
 .container {
   width: 100%;
@@ -40,17 +40,15 @@
   cursor: pointer;
 }
 
-.editBtn {
-  color: makerBlue;
-  font-size: fontRegular;
+.button {
+  color: makerGray;
 }
 
-.deleteBtn {
-  color: makerDarkGray;
-  transform: rotate(90deg);
+.button svg {
+  width: fontMedium;
 }
 
 .body {
-  margin-top: sizeRegular;
+  margin: sizeRegular auto;
   color: makerDarkGray;
 }

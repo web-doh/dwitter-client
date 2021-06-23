@@ -1,0 +1,37 @@
+@value sizeRegular, sizeMedium, sizeLarge, sizeBig, fontRegular, fontMedium, imgLarge, btnWidth, btnHeight from '../../common/size.css';
+@value makerBlack8, makerLightGray from '../../common/colors.css';
+
+.container {
+  display: flex;
+  width: 100%;
+  padding: sizeLarge sizeBig;
+  border-bottom: 12px solid makerBlack8;
+}
+
+.avatar {
+  width: imgLarge;
+  height: imgLarge;
+  line-height: imgLarge;
+  margin-right: sizeMedium;
+}
+
+.form {
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  padding: sizeRegular 0;
+  resize: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  width: btnWidth;
+  height: btnHeight;
+  font-size: fontRegular;
+}

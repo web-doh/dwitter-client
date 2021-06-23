@@ -2,6 +2,7 @@
 @value mainFont: 'Roboto';
 
 /* font size */
+@value fontSmall: 0.875rem;
 @value fontRegular: 0.9375rem;
 @value fontMedium: 1.125rem;
 @value fontLarge: 1.3125rem;
@@ -26,7 +27,7 @@
 @value imgLarge: 3rem;
 
 /* button size */
-@value btnSmallWidth: 6.125rem;
-@value btnSmallHeight: 2.625rem;
+@value btnSmallWidth: 4.875rem;
+@value btnSmallHeight: 1.875rem;
 @value btnWidth: 6.125rem;
 @value btnHeight: 2.625rem;

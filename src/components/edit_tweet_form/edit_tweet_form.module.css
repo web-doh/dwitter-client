@@ -1,0 +1,31 @@
+@value makerLightGray from '../../common/colors.css';
+@value fontSmall, fontRegular, sizeSmall, sizeRegular, btnSmallWidth, btnSmallHeight from '../../common/size.css';
+
+.form {
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  padding: sizeSmall;
+  border: 1px solid makerLightGray;
+  font-size: fontRegular;
+  resize: none;
+}
+
+.buttons {
+  margin-top: sizeRegular;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  width: btnSmallWidth;
+  height: btnSmallHeight;
+  margin-right: 0.5rem;
+  font-size: fontSmall;
+}
+
+.button:last-child {
+  margin: 0;
+}

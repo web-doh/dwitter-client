@@ -1,15 +1,27 @@
-import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import styles from "./header.module.css";
 
 const Header = () => {
-  const location = useLocation().pathname;
   const history = useHistory();
+  const location = useLocation().pathname;
+  const [currentLocation, setCurrentLocation] = useState("");
   const {
     loginUser: { loginUser },
     onLogout,
   } = useUser();
+
+  useEffect(() => {
+    if (location === "/" || location.includes("/home")) {
+      setCurrentLocation("home");
+    } else if (location.includes("/history")) {
+      setCurrentLocation("history");
+    } else {
+      setCurrentLocation("");
+    }
+  }, [location]);
 
   const logoutHandler = () => {
     if (window.confirm("Do you want to log out?")) {
@@ -38,8 +50,7 @@ const Header = () => {
         <nav className={styles.nav}>
           <h2
             className={`${styles.menu} ${
-              (location === "/" || location.includes("/home")) &&
-              styles.selected
+              currentLocation === "home" && styles.selected
             }`}
           >
             <Link to="/">Home</Link>
@@ -47,10 +58,10 @@ const Header = () => {
 
           <h2
             className={`${styles.menu} ${
-              location.includes(loginUser.username) && styles.selected
+              currentLocation === "history" && styles.selected
             }`}
           >
-            <Link to={`/${loginUser.username}`}>History</Link>
+            <Link to="/history">History</Link>
           </h2>
           <button className={styles.button} onClick={logoutHandler}>
             <h2 className={styles.menu}>Logout</h2>

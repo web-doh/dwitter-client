@@ -34,7 +34,7 @@ export default class TweetService {
   async update(tweetInfo: IRequest) {
     const { id, body } = tweetInfo;
     try {
-      const response = await axios.put(`/tweets/${id}`, body);
+      const response = await axios.put(`/tweets/${id}`, { body });
       return response;
     } catch (err) {
       return err;

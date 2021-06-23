@@ -1,0 +1,22 @@
+@value makerBlue, makerRed from '../../common/colors.css';
+@value weightExtraBold from '../../common/size.css';
+
+.button {
+  width: inherit;
+  height: inherit;
+  border-radius: 100px;
+  font-size: inherit;
+  font-weight: weightExtraBold;
+  text-transform: capitalize;
+  background-color: makerBlue;
+  opacity: 0.4;
+  transition: opacity 150ms ease-in-out;
+}
+
+.red {
+  background-color: makerRed;
+}
+
+.button:hover {
+  opacity: 1;
+}

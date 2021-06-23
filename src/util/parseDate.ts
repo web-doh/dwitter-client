@@ -6,17 +6,11 @@ export default function parseDate(tdate: string): string {
   if (diff <= 1) {
     return "just now";
   }
-  if (diff < 20) {
+  if (diff < 60) {
     return diff + " seconds ago";
   }
-  if (diff < 40) {
-    return "half a minute ago";
-  }
-  if (diff < 60) {
-    return "less than a minute ago";
-  }
   if (diff <= 90) {
-    return "one minute ago";
+    return "1 minute ago";
   }
   if (diff <= 3540) {
     return Math.round(diff / 60) + " minutes ago";
@@ -40,7 +34,7 @@ export default function parseDate(tdate: string): string {
   const year = created.toLocaleDateString("default", {
     year: "numeric",
   });
-  const currentYear = created.toLocaleDateString("default", {
+  const currentYear = now.toLocaleDateString("default", {
     year: "numeric",
   });
 

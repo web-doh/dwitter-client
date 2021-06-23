@@ -1,0 +1,45 @@
+@value makerWhite, makerBlack, makerBlack8, makerBlack60, makerLightGray, makerDarkGray, makerBlue, makerRed from '../../common/colors.css';
+@value fontRegular, weightMedium, sizeRegular from '../../common/size.css';
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: makerBlack60;
+}
+
+.window {
+  width: 50vw;
+  max-width: 540px;
+  border-radius: 0.5rem;
+  background-color: makerWhite;
+}
+
+.option {
+  padding: sizeRegular 0;
+  border-bottom: 1px solid makerLightGray;
+}
+
+.option:last-child {
+  border: none;
+}
+
+.option:active {
+  background-color: makerBlack8;
+}
+
+.button {
+  width: 100%;
+  color: makerBlack;
+  font-size: fontRegular;
+}
+
+.red {
+  color: makerRed;
+  font-weight: weightMedium;
+}

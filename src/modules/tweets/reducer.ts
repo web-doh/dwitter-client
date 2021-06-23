@@ -33,7 +33,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
     const tweet = (payload as IResponse).data as tweet;
     return {
       ...state,
-      tweets: state.tweets.concat(tweet),
+      tweets: [tweet, ...state.tweets],
       isLoading: false,
     };
   },
@@ -53,6 +53,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
   },
   [DELETE_TWEET.SUCCESS]: (state, { payload }) => {
     const deleted = (payload as IResponse).data as number;
+
     return {
       ...state,
       tweets: state.tweets.filter((tweet) => tweet.id !== deleted),

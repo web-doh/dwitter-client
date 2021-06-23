@@ -29,8 +29,8 @@ function App() {
           <Route exact path={["/", "/home"]}>
             <Home />
           </Route>
-          <Route exact path={"/:username"}>
-            <History />
+          <Route exact path={["/history", "/:username"]}>
+            <History loginUser={loginUser.username} />
           </Route>
         </Switch>
       ) : (
