@@ -1,30 +1,50 @@
-import { createAction, createAsyncAction } from "typesafe-actions";
+import { AxiosError, AxiosResponse } from "axios";
+import { createAsyncAction } from "typesafe-actions";
 import { IRequest } from "../../service/auth";
-import { user } from "./types";
 
 // action type
+export const SIGNUP = {
+  REQUEST: "loginUser/SIGNUP_REQUEST",
+  SUCCESS: "loginUser/LSIGNUPSUCCESS",
+  FAILURE: "loginUser/SIGNUP_FAILURE",
+};
 export const LOGIN = {
   REQUEST: "loginUser/LOGIN_REQUEST",
   SUCCESS: "loginUser/LOGIN_SUCCESS",
   FAILURE: "loginUser/LOGIN_FAILURE",
 };
-export const LOGOUT = "loginUser/LOGOUT";
-
-// action arg type
-export interface IResponse {
-  status: string;
-  data: user;
-}
-
-export interface IError {
-  message: string;
-}
+export const ME = {
+  REQUEST: "loginUser/ME_REQUEST",
+  SUCCESS: "loginUser/ME_SUCCESS",
+  FAILURE: "loginUser/ME_FAILURE",
+};
+export const LOGOUT = {
+  REQUEST: "loginUser/LOGOUT_REQUEST",
+  SUCCESS: "loginUser/LOGOUT_SUCCESS",
+  FAILURE: "loginUser/LOGOUT_FAILURE",
+};
 
 // action 비동기 생성 함수
+export const signupAsync = createAsyncAction(
+  SIGNUP.REQUEST,
+  SIGNUP.SUCCESS,
+  SIGNUP.FAILURE
+)<IRequest, AxiosResponse, AxiosError>();
+
 export const loginAsync = createAsyncAction(
   LOGIN.REQUEST,
   LOGIN.SUCCESS,
   LOGIN.FAILURE
-)<IRequest, IResponse, IError>();
+)<IRequest, AxiosResponse, AxiosError>();
 
-export const logout = createAction(LOGOUT)();
+export const meAsync = createAsyncAction(ME.REQUEST, ME.SUCCESS, ME.FAILURE)<
+  any,
+  AxiosResponse,
+  AxiosError
+>();
+
+export const logoutAsync = createAsyncAction(
+  LOGOUT.REQUEST,
+  LOGOUT.SUCCESS,
+  LOGOUT.FAILURE
+)<any, any, any>();

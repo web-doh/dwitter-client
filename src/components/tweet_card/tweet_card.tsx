@@ -51,7 +51,7 @@ const TweetCard = ({ tweet, isOwner, onDeleteHandler }: TweetCardProps) => {
     setEditing(true);
   };
   const onCloseEditor = () => setEditing(false);
-  const onDelete = (id: number) => {
+  const onDelete = (id: string) => {
     onCloseWindow();
     onDeleteHandler(id);
   };
@@ -88,7 +88,7 @@ const TweetCard = ({ tweet, isOwner, onDeleteHandler }: TweetCardProps) => {
                 </button>
               )}
             </header>
-            <p className={styles.body}>{body}</p>
+            <pre className={styles.body}>{body}</pre>
             {editing && <EditTweetForm tweet={tweet} onClose={onCloseEditor} />}
           </section>
         </section>

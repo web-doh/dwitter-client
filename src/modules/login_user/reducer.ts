@@ -1,5 +1,14 @@
 import { UserState } from "./types";
-import { IResponse, LOGIN, loginAsync, LOGOUT } from "./actions";
+import {
+  LOGIN,
+  loginAsync,
+  LOGOUT,
+  logoutAsync,
+  ME,
+  meAsync,
+  SIGNUP,
+  signupAsync,
+} from "./actions";
 import { createReducer } from "typesafe-actions";
 import { createAsyncReducer } from "../../util/asyncUtils";
 
@@ -11,20 +20,39 @@ const initialState: UserState = {
 };
 
 const loginUser = createReducer<UserState>(initialState, {
+  [SIGNUP.SUCCESS]: (state, { payload }) => {
+    const newUser = payload.data;
+    return {
+      ...state,
+      loginUser: newUser,
+      isLoading: false,
+    };
+  },
   [LOGIN.SUCCESS]: (state, { payload }) => {
-    const loginUser = (payload as IResponse).data;
+    const loginUser = payload.data;
     return {
       ...state,
       loginUser,
       isLoading: false,
     };
   },
-  [LOGOUT]: (state) => ({
+  [ME.SUCCESS]: (state, { payload }) => {
+    const loginUser = payload.data;
+    return {
+      ...state,
+      loginUser,
+      isLoading: false,
+    };
+  },
+  [LOGOUT.SUCCESS]: (state) => ({
     ...state,
     loginUser: null,
     isLoading: false,
   }),
+  ...createAsyncReducer(signupAsync),
+  ...createAsyncReducer(meAsync),
   ...createAsyncReducer(loginAsync),
+  ...createAsyncReducer(logoutAsync),
 });
 
 export default loginUser;

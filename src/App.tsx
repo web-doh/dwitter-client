@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import styles from "./app.module.css";
 import Header from "./components/header/header";
 import useUser from "./hooks/useUser";
@@ -11,14 +11,19 @@ function App() {
   const {
     loginUser: { loginUser },
     onLogin,
+    onMe,
   } = useUser();
 
   useEffect(() => {
+    onMe();
+  }, [loginUser?.username]);
+
+  useEffect(() => {
     onLogin({
-      username: "alice",
-      password: "bob1234",
+      username: "bob",
+      password: "abcd1234",
     });
-  }, [useUser, loginUser?.username]);
+  }, []);
 
   return (
     <div className={styles.app}>

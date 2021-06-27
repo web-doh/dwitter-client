@@ -18,7 +18,7 @@ export default function useTweets() {
     dispatch(postAsync.request(tweetInfo));
   const onUpdateTweet = (tweetInfo: IRequest) =>
     dispatch(updateAsync.request(tweetInfo));
-  const onDeleteTweet = (tweetId: number) =>
+  const onDeleteTweet = (tweetId: string) =>
     dispatch(deleteAsync.request(tweetId));
 
   return { tweets, onGetTweets, onPostTweet, onUpdateTweet, onDeleteTweet };

@@ -1,6 +1,6 @@
 import { IRequest } from "../../service/tweets";
 import { createAsyncAction } from "typesafe-actions";
-import { tweet } from "./types";
+import { AxiosError, AxiosResponse } from "axios";
 
 // action type
 export const GET_TWEETS = {
@@ -24,37 +24,27 @@ export const DELETE_TWEET = {
   FAILURE: "tweets/DELETE_TWEETS_FAILURE",
 };
 
-// action arg type
-export interface IResponse {
-  status: string;
-  data: Array<tweet> | tweet | number;
-}
-
-export interface IError {
-  message: string;
-}
-
 // action 비동기 생성 함수
 export const getAsync = createAsyncAction(
   GET_TWEETS.REQUEST,
   GET_TWEETS.SUCCESS,
   GET_TWEETS.FAILURE
-)<string, IResponse, IError>();
+)<string, AxiosResponse, AxiosError>();
 
 export const postAsync = createAsyncAction(
   POST_TWEET.REQUEST,
   POST_TWEET.SUCCESS,
   POST_TWEET.FAILURE
-)<IRequest, IResponse, IError>();
+)<IRequest, AxiosResponse, AxiosError>();
 
 export const updateAsync = createAsyncAction(
   UPDATE_TWEET.REQUEST,
   UPDATE_TWEET.SUCCESS,
   UPDATE_TWEET.FAILURE
-)<IRequest, IResponse, IError>();
+)<IRequest, AxiosResponse, AxiosError>();
 
 export const deleteAsync = createAsyncAction(
   DELETE_TWEET.REQUEST,
   DELETE_TWEET.SUCCESS,
   DELETE_TWEET.FAILURE
-)<number, IResponse, IError>();
+)<string, AxiosResponse, AxiosError>();

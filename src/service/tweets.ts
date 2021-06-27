@@ -1,52 +1,69 @@
-import axios from "axios";
+import { StorageConstructor, Storage } from "../db/token";
+import { Network, NetworkConstructor } from "../util/httpNetwork";
 
 export interface IRequest {
-  username?: string;
-  name?: string;
-  body?: string;
-  profile_url?: string;
-  id?: number;
+  body: string;
+  id?: string;
 }
 
+type TweetServiceConstructorProps = {
+  baseURL: string;
+  httpConstructor: NetworkConstructor;
+  tokenStorageConstructor: StorageConstructor;
+};
+
 export default class TweetService {
-  constructor(private readonly baseURL: string) {
-    axios.defaults.baseURL = this.baseURL;
+  private http: Network;
+  private tokenStorage: Storage;
+
+  private headers: { Authorization: string };
+  constructor({
+    baseURL,
+    httpConstructor,
+    tokenStorageConstructor,
+  }: TweetServiceConstructorProps) {
+    this.http = new httpConstructor(baseURL);
+    this.tokenStorage = new tokenStorageConstructor();
+    this.headers = this.getHeaders();
   }
 
-  async get(username: string = "") {
-    try {
-      const response = await axios.get(`/tweets/${username}`);
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+  private getHeaders = () => {
+    const token = this.tokenStorage.get();
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  };
 
-  async post(tweetInfo: IRequest) {
-    try {
-      const response = await axios.post("/tweets", tweetInfo);
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+  get = async (username: string = "") => {
+    return this.http.axios(`/tweets/${username}`, {
+      method: "get",
+      headers: this.headers,
+    });
+  };
 
-  async update(tweetInfo: IRequest) {
+  post = async (tweetInfo: IRequest) => {
+    return this.http.axios(`/tweets`, {
+      method: "post",
+      headers: this.headers,
+      data: tweetInfo,
+    });
+  };
+
+  update = async (tweetInfo: IRequest) => {
     const { id, body } = tweetInfo;
-    try {
-      const response = await axios.put(`/tweets/${id}`, { body });
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+    return this.http.axios(`/tweets/${id}`, {
+      method: "put",
+      headers: this.headers,
+      data: {
+        body,
+      },
+    });
+  };
 
-  async delete(tweetId: number) {
-    try {
-      const response = await axios.delete(`/tweets/${tweetId}`);
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+  delete = async (tweetId: string) => {
+    return this.http.axios(`/tweets/${tweetId}`, {
+      method: "delete",
+      headers: this.headers,
+    });
+  };
 }

@@ -1,5 +1,5 @@
+import { AxiosResponse } from "axios";
 import {
-  IResponse,
   DELETE_TWEET,
   GET_TWEETS,
   POST_TWEET,
@@ -22,7 +22,7 @@ const initialState: TweetState = {
 
 const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
   [GET_TWEETS.SUCCESS]: (state, { payload }) => {
-    const tweets = (payload as IResponse).data as Array<tweet>;
+    const tweets = (payload as AxiosResponse).data as Array<tweet>;
     return {
       ...state,
       tweets,
@@ -30,7 +30,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
     };
   },
   [POST_TWEET.SUCCESS]: (state, { payload }) => {
-    const tweet = (payload as IResponse).data as tweet;
+    const tweet = (payload as AxiosResponse).data as tweet;
     return {
       ...state,
       tweets: [tweet, ...state.tweets],
@@ -38,7 +38,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
     };
   },
   [UPDATE_TWEET.SUCCESS]: (state, { payload }) => {
-    const updated = (payload as IResponse).data as tweet;
+    const updated = (payload as AxiosResponse).data as tweet;
     const id = updated.id;
     return {
       ...state,
@@ -52,7 +52,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
     };
   },
   [DELETE_TWEET.SUCCESS]: (state, { payload }) => {
-    const deleted = (payload as IResponse).data as number;
+    const deleted = (payload as AxiosResponse).data as string;
 
     return {
       ...state,

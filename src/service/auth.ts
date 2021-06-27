@@ -1,51 +1,64 @@
-import axios from "axios";
+import { Network, NetworkConstructor } from "./../util/httpNetwork";
+import { Storage, StorageConstructor } from "../db/token";
 
 export interface IRequest {
   username: string;
   password: string;
+  name?: string;
+  email?: string;
+  profile_url?: string;
 }
 
-type user = {
-  username: string;
-  password: string;
-  name: string;
-  email: string;
-  profile_url?: string;
+type AuthServiceConstructorProps = {
+  baseURL: string;
+  httpConstructor: NetworkConstructor;
+  tokenStorageConstructor: StorageConstructor;
 };
 
 export default class AuthService {
-  constructor(private readonly baseURL: string) {
-    axios.defaults.baseURL = this.baseURL;
+  private http: Network;
+  private tokenStorage: Storage;
+  constructor({
+    baseURL,
+    httpConstructor,
+    tokenStorageConstructor,
+  }: AuthServiceConstructorProps) {
+    this.http = new httpConstructor(baseURL);
+    this.tokenStorage = new tokenStorageConstructor();
   }
 
-  async signup(userInfo: user) {
-    try {
-      const response = await axios.post(`/auth/signup`, userInfo);
+  signup = async (userInfo: IRequest) => {
+    const response = await this.http.axios(`/auth/signup`, {
+      method: "post",
+      data: userInfo,
+    });
 
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+    this.tokenStorage.save(response.data.token);
 
-  async login(userInfo: IRequest) {
-    try {
-      const response = await axios.post(`/auth/login`, userInfo);
+    return response;
+  };
 
-      return response;
-    } catch (err) {
-      return err;
-    }
-  }
+  login = async (userInfo: IRequest) => {
+    const response = await this.http.axios(`/auth/login`, {
+      method: "post",
+      data: userInfo,
+    });
 
-  async me() {
-    return {
-      username: "ellie",
-      token: "abc1234",
-    };
-  }
+    this.tokenStorage.save(response.data.token);
 
-  async logout() {
-    return;
-  }
+    return response;
+  };
+
+  me = async () => {
+    const token = this.tokenStorage.get();
+
+    return this.http.axios(`/auth/me`, {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
+  logout = async () => {
+    this.tokenStorage.clear();
+  };
 }
