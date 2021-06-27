@@ -1,4 +1,4 @@
-@value sizeSmall, sizeRegular, sizeMedium, sizeBig, fontMedium, weightExtraBold, imgMedium from '../../common/size.css';
+@value sizeSmall, sizeRegular, sizeMedium, sizeBig, fontRegular, fontMedium, weightExtraBold, imgMedium from '../../common/size.css';
 @value makerBlack, makerBlack8, makerGray, makerDarkGray, makerBlue from '../../common/colors.css';
 
 .container {
@@ -49,6 +49,10 @@
 }
 
 .body {
+  overflow: hidden;
+  height: auto;
+  font-size: fontRegular;
+  line-height: fontMedium;
   margin: sizeRegular auto;
   color: makerDarkGray;
 }

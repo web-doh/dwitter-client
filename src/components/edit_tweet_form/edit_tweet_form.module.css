@@ -6,11 +6,9 @@
 }
 
 .textarea {
-  width: 100%;
   padding: sizeSmall;
   border: 1px solid makerLightGray;
   font-size: fontRegular;
-  resize: none;
 }
 
 .buttons {

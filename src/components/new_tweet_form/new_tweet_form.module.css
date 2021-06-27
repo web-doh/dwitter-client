@@ -19,12 +19,6 @@
   width: 100%;
 }
 
-.textarea {
-  width: 100%;
-  padding: sizeRegular 0;
-  resize: none;
-}
-
 .buttons {
   display: flex;
   justify-content: flex-end;

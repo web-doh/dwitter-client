@@ -17,9 +17,7 @@ const NewTweetForm = ({ username, url }: NewTweetFormProps) => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newTweet = {
-      username,
       body,
-      profile_url: url,
     };
     onPostTweet(newTweet);
     setBody("");
@@ -39,7 +37,6 @@ const NewTweetForm = ({ username, url }: NewTweetFormProps) => {
           placeholder="What's happening?"
           value={body}
           required
-          className={styles.textarea}
           onChange={onChange}
         ></textarea>
         <div className={styles.buttons}>

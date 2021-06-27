@@ -21,7 +21,7 @@ const Tweets = ({ username }: TweetsProps) => {
 
   useEffect(() => {
     onGetTweets(username);
-  }, [username, loginUser?.username, useTweets]);
+  }, [username, loginUser?.token]);
 
   return (
     <>

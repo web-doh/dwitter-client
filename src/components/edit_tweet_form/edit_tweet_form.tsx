@@ -11,7 +11,7 @@ type EditTweetFormProps = {
 };
 
 const EditTweetForm = ({ tweet, onClose }: EditTweetFormProps) => {
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState(tweet.body);
   const { onUpdateTweet } = useTweets();
 
   const onCloseHandler = () => {
@@ -25,6 +25,7 @@ const EditTweetForm = ({ tweet, onClose }: EditTweetFormProps) => {
       ...tweet,
       body,
     };
+
     onCloseHandler();
     onUpdateTweet(newTweet);
     setBody("");

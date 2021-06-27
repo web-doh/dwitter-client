@@ -1,4 +1,4 @@
-@value mainFont, sizeSmall, fontRegular, fontMedium, fontLarge, weightRegular, weightMedium, weightBold, weightExtraBold from './size.css';
+@value mainFont, sizeSmall, sizeRegular, fontRegular, fontMedium, fontLarge, weightRegular, weightMedium, weightBold, weightExtraBold from './size.css';
 @value makerBlack, makerWhite, makerDarkGray, makerGray, makerLightGray from './colors.css';
 
 body {
@@ -29,6 +29,9 @@ span {
 }
 
 textarea {
+  width: 100%;
+  padding: sizeRegular 0;
+  resize: none;
   font-family: mainFont;
   font-size: fontMedium;
   font-weight: weightRegular;

@@ -19,9 +19,7 @@ export function createAsyncSaga<
     [SuccessType, [SuccessPayload, undefined]],
     [FailureType, [FailurePayload, undefined]]
   >,
-  asyncFunction: PromiseCreatorFunction<RequestPayload, SuccessPayload>,
-  successFunc?: any,
-  failureFunc?: any
+  asyncFunction: PromiseCreatorFunction<RequestPayload, SuccessPayload>
 ) {
   return function* saga(action: ReturnType<typeof asyncAction.request>) {
     try {
@@ -30,14 +28,8 @@ export function createAsyncSaga<
         (action as any).payload
       );
       yield put(asyncAction.success(response)); // dispatch
-      if (successFunc) {
-        yield call(successFunc, response);
-      }
     } catch (err) {
       yield put(asyncAction.failure(err));
-      if (failureFunc) {
-        yield call(failureFunc, err);
-      }
     }
   };
 }
@@ -74,7 +66,7 @@ export function createAsyncReducer<S, AC extends AnyAsyncActionCreator>(
     ) => ({
       ...state,
       isLoading: false,
-      errorMessage: action.payload,
+      errorMessage: action.payload.message,
     }),
   };
 }

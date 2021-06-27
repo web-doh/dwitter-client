@@ -48,30 +48,33 @@ const Header = () => {
       </Link>
       {loginUser ? (
         <nav className={styles.nav}>
-          <h2
-            className={`${styles.menu} ${
-              currentLocation === "home" && styles.selected
-            }`}
-          >
-            <Link to="/">Home</Link>
-          </h2>
-
-          <h2
-            className={`${styles.menu} ${
-              currentLocation === "history" && styles.selected
-            }`}
-          >
-            <Link to="/history">History</Link>
-          </h2>
+          <Link to="/">
+            <h2
+              className={`${styles.menu} ${
+                currentLocation === "home" && styles.selected
+              }`}
+            >
+              Home
+            </h2>
+          </Link>
+          <Link to="/history">
+            <h2
+              className={`${styles.menu} ${
+                currentLocation === "history" && styles.selected
+              }`}
+            >
+              History
+            </h2>
+          </Link>
           <button className={styles.button} onClick={logoutHandler}>
             <h2 className={styles.menu}>Logout</h2>
           </button>
         </nav>
       ) : (
         <nav>
-          <button className={styles.button} onClick={logoutHandler}>
+          <Link to="/login">
             <h2 className={`${styles.menu} ${styles.selected}`}>Login</h2>
-          </button>
+          </Link>
         </nav>
       )}
     </header>
