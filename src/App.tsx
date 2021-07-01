@@ -1,50 +1,60 @@
 import { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import styles from "./app.module.css";
 import Header from "./components/header/header";
+import TokenStorage from "./db/token";
 import useUser from "./hooks/useUser";
 import History from "./pages/history/history";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
+import NotFound from "./pages/not_found/not_found";
+import PrivateRoute from "./routes/private_route";
 
-function App() {
+type AppProps = {
+  tokenDB: TokenStorage;
+};
+
+function App({ tokenDB }: AppProps) {
   const {
     loginUser: { loginUser },
-    onLogin,
     onMe,
   } = useUser();
 
   useEffect(() => {
-    onMe();
-  }, [loginUser?.username]);
-
-  useEffect(() => {
-    onLogin({
-      username: "bob",
-      password: "abcd1234",
-    });
-  }, []);
+    const token = tokenDB.get();
+    if (token) {
+      onMe();
+    }
+  }, [useUser, loginUser?.username]);
 
   return (
     <div className={styles.app}>
       <Header />
 
-      {loginUser ? (
+      <main className={styles.main}>
         <Switch>
-          <Route exact path={["/", "/home"]}>
+          <PrivateRoute
+            exact
+            path={["/", "/home"]}
+            isAuthenticated={loginUser ? true : false}
+          >
             <Home />
+          </PrivateRoute>
+          <PrivateRoute
+            exact
+            path={["/history", "/dweets/:username"]}
+            isAuthenticated={loginUser ? true : false}
+          >
+            <History loginUser={loginUser?.username || ""} />
+          </PrivateRoute>
+          <Route exact path="/login">
+            {loginUser ? <Redirect to="/" /> : <Login />}
           </Route>
-          <Route exact path={["/history", "/:username"]}>
-            <History loginUser={loginUser.username} />
+          <Route path={["*", "/not-found"]}>
+            <NotFound />
           </Route>
         </Switch>
-      ) : (
-        <Switch>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
-      )}
+      </main>
     </div>
   );
 }

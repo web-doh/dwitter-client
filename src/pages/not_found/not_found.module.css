@@ -1,0 +1,25 @@
+@value sizeSmall, sizeRegular, btnWidth, btnSmallHeight from '../../common/size.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.logo {
+  width: 60%;
+  max-width: 270px;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: btnWidth;
+  height: btnSmallHeight;
+  margin: sizeRegular sizeSmall;
+}
