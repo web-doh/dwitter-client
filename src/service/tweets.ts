@@ -1,10 +1,13 @@
 import { StorageConstructor, Storage } from "../db/token";
 import { Network, NetworkConstructor } from "../util/httpNetwork";
 
-export interface IRequest {
+export type PostProps = {
   body: string;
-  id?: string;
-}
+};
+
+export type UpdateProps = {
+  id: string;
+} & PostProps;
 
 type TweetServiceConstructorProps = {
   baseURL: string;
@@ -15,8 +18,6 @@ type TweetServiceConstructorProps = {
 export default class TweetService {
   private http: Network;
   private tokenStorage: Storage;
-
-  private headers: { Authorization: string };
   constructor({
     baseURL,
     httpConstructor,
@@ -24,7 +25,6 @@ export default class TweetService {
   }: TweetServiceConstructorProps) {
     this.http = new httpConstructor(baseURL);
     this.tokenStorage = new tokenStorageConstructor();
-    this.headers = this.getHeaders();
   }
 
   private getHeaders = () => {
@@ -37,23 +37,23 @@ export default class TweetService {
   get = async (username: string = "") => {
     return this.http.axios(`/tweets/${username}`, {
       method: "get",
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   };
 
-  post = async (tweetInfo: IRequest) => {
+  post = async (tweetInfo: PostProps) => {
     return this.http.axios(`/tweets`, {
       method: "post",
-      headers: this.headers,
+      headers: this.getHeaders(),
       data: tweetInfo,
     });
   };
 
-  update = async (tweetInfo: IRequest) => {
+  update = async (tweetInfo: UpdateProps) => {
     const { id, body } = tweetInfo;
     return this.http.axios(`/tweets/${id}`, {
       method: "put",
-      headers: this.headers,
+      headers: this.getHeaders(),
       data: {
         body,
       },
@@ -63,7 +63,7 @@ export default class TweetService {
   delete = async (tweetId: string) => {
     return this.http.axios(`/tweets/${tweetId}`, {
       method: "delete",
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   };
 }

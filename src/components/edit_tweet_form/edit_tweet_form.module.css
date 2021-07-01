@@ -1,4 +1,4 @@
-@value makerLightGray from '../../common/colors.css';
+@value makerLightGray, makerRed from '../../common/colors.css';
 @value fontSmall, fontRegular, sizeSmall, sizeRegular, btnSmallWidth, btnSmallHeight from '../../common/size.css';
 
 .form {
@@ -9,6 +9,10 @@
   padding: sizeSmall;
   border: 1px solid makerLightGray;
   font-size: fontRegular;
+}
+
+.errorMsg {
+  color: makerRed;
 }
 
 .buttons {

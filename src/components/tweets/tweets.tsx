@@ -16,12 +16,14 @@ const Tweets = ({ username }: TweetsProps) => {
   const {
     tweets: { tweets },
     onGetTweets,
+    onPostTweet,
+    onUpdateTweet,
     onDeleteTweet,
   } = useTweets();
 
   useEffect(() => {
     onGetTweets(username);
-  }, [username, loginUser?.token]);
+  }, [useUser, username]);
 
   return (
     <>
@@ -29,6 +31,7 @@ const Tweets = ({ username }: TweetsProps) => {
         <NewTweetForm
           username={loginUser.username}
           url={loginUser.profile_url}
+          onPost={onPostTweet}
         />
       )}
       <ul>
@@ -37,6 +40,7 @@ const Tweets = ({ username }: TweetsProps) => {
             key={tweet.id}
             tweet={tweet}
             isOwner={loginUser.username === tweet.username}
+            onUpdate={onUpdateTweet}
             onDeleteHandler={onDeleteTweet}
           />
         ))}

@@ -1,4 +1,5 @@
 import { SignUpProps, LoginProps } from "../service/auth";
+import { PostProps } from "../service/tweets";
 
 export type SignUpError = {
   username?: string;
@@ -15,7 +16,11 @@ export type LoginError = {
   password?: string;
 };
 
-export type ValidateError = SignUpError | LoginError;
+export type TweetError = {
+  body?: string;
+};
+
+export type ValidateError = SignUpError | LoginError | TweetError;
 
 export function validateSignup({
   username,
@@ -77,6 +82,16 @@ export function validateLogin({ username, password }: LoginProps): LoginError {
   } else if (!/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/.test(password)) {
     errors.password =
       "Please enter at least 6 characters including English and numbers.";
+  }
+
+  return errors;
+}
+
+export function validateTweet({ body }: PostProps): TweetError {
+  const errors: TweetError = {};
+
+  if (!body) {
+    errors.body = "Please enter your body.";
   }
 
   return errors;

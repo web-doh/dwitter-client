@@ -1,4 +1,4 @@
-import { IRequest } from "../../service/tweets";
+import { PostProps, UpdateProps } from "../../service/tweets";
 import { createAsyncAction } from "typesafe-actions";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -35,13 +35,13 @@ export const postAsync = createAsyncAction(
   POST_TWEET.REQUEST,
   POST_TWEET.SUCCESS,
   POST_TWEET.FAILURE
-)<IRequest, AxiosResponse, AxiosError>();
+)<PostProps, AxiosResponse, AxiosError>();
 
 export const updateAsync = createAsyncAction(
   UPDATE_TWEET.REQUEST,
   UPDATE_TWEET.SUCCESS,
   UPDATE_TWEET.FAILURE
-)<IRequest, AxiosResponse, AxiosError>();
+)<UpdateProps, AxiosResponse, AxiosError>();
 
 export const deleteAsync = createAsyncAction(
   DELETE_TWEET.REQUEST,

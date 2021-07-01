@@ -2,8 +2,9 @@ import { ValidateError } from "./../util/validate";
 import { useEffect } from "react";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { SignUpProps, LoginProps } from "../service/auth";
+import { PostProps, UpdateProps } from "../service/tweets";
 
-type FormProps = SignUpProps | LoginProps;
+type FormProps = SignUpProps | LoginProps | PostProps | UpdateProps;
 
 type UseFormProps<P extends FormProps, E extends ValidateError> = {
   initialValues: P;

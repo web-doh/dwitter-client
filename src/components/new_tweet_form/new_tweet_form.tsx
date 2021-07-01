@@ -1,51 +1,53 @@
-import { ChangeEvent, useState } from "react";
-import { FormEvent } from "react";
-import useTweets from "../../hooks/useTweets";
+import useForm from "../../hooks/useForm";
+import { PostProps } from "../../service/tweets";
+import { TweetError, validateTweet } from "../../util/validate";
 import Avatar from "../avatar/avatar";
+import ErrorBanner from "../error_banner/error_banner";
 import FormBtn from "../form_btn/form_btn";
 import styles from "./new_tweet_form.module.css";
 
 type NewTweetFormProps = {
   username: string;
   url?: string;
+  onPost(tweet: PostProps): any;
 };
 
-const NewTweetForm = ({ username, url }: NewTweetFormProps) => {
-  const { onPostTweet } = useTweets();
-  const [body, setBody] = useState("");
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const newTweet = {
-      body,
-    };
-    onPostTweet(newTweet);
-    setBody("");
-  };
-
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(e.target.value);
-  };
+const NewTweetForm = ({ username, url, onPost }: NewTweetFormProps) => {
+  const {
+    data: newTweet,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useForm<PostProps, TweetError>({
+    initialValues: { body: "" },
+    onSubmit: onPost,
+    validate: validateTweet,
+  });
 
   return (
-    <section className={styles.container}>
-      <div className={styles.avatar}>
-        <Avatar url={url} name={username} />
-      </div>
-      <form className={styles.form} onSubmit={onSubmit}>
-        <textarea
-          placeholder="What's happening?"
-          value={body}
-          required
-          onChange={onChange}
-        ></textarea>
-        <div className={styles.buttons}>
-          <div className={styles.button}>
-            <FormBtn text="tweet" />
-          </div>
+    <>
+      {errors.body && <ErrorBanner message={errors.body} />}
+      <section className={styles.container}>
+        <div className={styles.avatar}>
+          <Avatar url={url} name={username} />
         </div>
-      </form>
-    </section>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
+          <textarea
+            placeholder="What's happening?"
+            name="body"
+            value={newTweet.body}
+            required
+            onChange={handleChange}
+          ></textarea>
+          <div className={styles.buttons}>
+            <div className={styles.button}>
+              <FormBtn text="tweet" submitting={submitting} />
+            </div>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };
 

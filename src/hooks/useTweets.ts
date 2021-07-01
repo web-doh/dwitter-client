@@ -6,7 +6,7 @@ import {
   postAsync,
   updateAsync,
 } from "../modules/tweets/actions";
-import { IRequest } from "../service/tweets";
+import { PostProps, UpdateProps } from "../service/tweets";
 
 export default function useTweets() {
   const tweets = useSelector((state: RootState) => state.tweets);
@@ -14,9 +14,9 @@ export default function useTweets() {
 
   const onGetTweets = (username: string = "") =>
     dispatch(getAsync.request(username));
-  const onPostTweet = (tweetInfo: IRequest) =>
+  const onPostTweet = (tweetInfo: PostProps) =>
     dispatch(postAsync.request(tweetInfo));
-  const onUpdateTweet = (tweetInfo: IRequest) =>
+  const onUpdateTweet = (tweetInfo: UpdateProps) =>
     dispatch(updateAsync.request(tweetInfo));
   const onDeleteTweet = (tweetId: string) =>
     dispatch(deleteAsync.request(tweetId));

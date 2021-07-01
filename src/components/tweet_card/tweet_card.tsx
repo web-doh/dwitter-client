@@ -7,11 +7,13 @@ import Avatar from "../avatar/avatar";
 import EditTweetForm from "../edit_tweet_form/edit_tweet_form";
 import SelectWindow from "../select_window/select_window";
 import styles from "./tweet_card.module.css";
+import { UpdateProps } from "../../service/tweets";
 
 type TweetCardProps = {
   tweet: tweet;
   isOwner: boolean;
-  onDeleteHandler: Function;
+  onUpdate(tweet: UpdateProps): void;
+  onDeleteHandler(id: string): void;
 };
 
 type SelectOption = {
@@ -22,7 +24,12 @@ type SelectOption = {
 
 export type SelectOptions = Array<SelectOption>;
 
-const TweetCard = ({ tweet, isOwner, onDeleteHandler }: TweetCardProps) => {
+const TweetCard = ({
+  tweet,
+  isOwner,
+  onUpdate,
+  onDeleteHandler,
+}: TweetCardProps) => {
   const {
     username,
     name,
@@ -73,11 +80,11 @@ const TweetCard = ({ tweet, isOwner, onDeleteHandler }: TweetCardProps) => {
             <header className={styles.header}>
               <div>
                 <span className={styles.name}>{name}</span>
-                <Link to={`/${username}`}>
+                <Link to={`/dweets/${username}`}>
                   <span className={styles.username}>@{username}</span>
                 </Link>
                 <span>
-                  {modified_at === created_at
+                  {!modified_at
                     ? ` · ${parseDate(created_at)}  `
                     : ` · ${parseDate(modified_at)} 수정됨  `}
                 </span>
@@ -89,7 +96,13 @@ const TweetCard = ({ tweet, isOwner, onDeleteHandler }: TweetCardProps) => {
               )}
             </header>
             <pre className={styles.body}>{body}</pre>
-            {editing && <EditTweetForm tweet={tweet} onClose={onCloseEditor} />}
+            {editing && (
+              <EditTweetForm
+                tweet={tweet}
+                onClose={onCloseEditor}
+                onUpdate={onUpdate}
+              />
+            )}
           </section>
         </section>
       </li>
