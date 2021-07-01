@@ -1,3 +1,4 @@
+import { LoginProps, SignUpProps } from "./../service/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../modules";
 import {
@@ -7,15 +8,13 @@ import {
   signupAsync,
 } from "../modules/login_user/actions";
 
-import { IRequest } from "../service/auth";
-
 export default function useUser() {
   const loginUser = useSelector((state: RootState) => state.loginUser);
   const dispatch = useDispatch();
 
-  const onSignup = (userInfo: IRequest) =>
+  const onSignup = (userInfo: SignUpProps) =>
     dispatch(signupAsync.request(userInfo));
-  const onLogin = (userInfo: IRequest) =>
+  const onLogin = (userInfo: LoginProps) =>
     dispatch(loginAsync.request(userInfo));
   const onLogout = () => dispatch(logoutAsync.request(undefined));
   const onMe = () => dispatch(meAsync.request(undefined));

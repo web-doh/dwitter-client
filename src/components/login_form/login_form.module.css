@@ -1,0 +1,56 @@
+@value sizeSmall, sizeRegular, sizeMedium, fontSmall, fontRegular, btnHeight from '../../common/size.css';
+@value makerLightGray, makerGray, makerBlue, makerRed from '../../common/colors.css';
+
+.form {
+  width: 90%;
+}
+
+.item {
+  width: 100%;
+  margin: sizeMedium auto;
+}
+
+.box {
+  padding: sizeSmall 0.5rem;
+  border: 1px solid makerLightGray;
+  border-radius: 8px;
+  color: makerGray;
+  display: flex;
+  flex-direction: column;
+}
+
+.box:focus-within {
+  border-color: makerBlue;
+  color: makerBlue;
+}
+
+.errorBox {
+  border: 1px solid makerRed;
+  margin-bottom: sizeSmall;
+  color: makerRed;
+}
+
+.empty {
+  transform: translateY(sizeRegular);
+  font-size: fontRegular;
+  width: fit-content;
+}
+
+.box:focus-within .empty,
+.label {
+  transform: translateY(0);
+  font-size: fontSmall;
+}
+
+.errorMsg {
+  padding-left: sizeSmall;
+  color: makerRed;
+  font-weight: weightMedium;
+}
+
+.button {
+  width: 100%;
+  height: btnHeight;
+  margin-bottom: sizeRegular;
+  font-size: fontRegular;
+}

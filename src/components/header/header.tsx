@@ -12,16 +12,20 @@ const Header = () => {
     loginUser: { loginUser },
     onLogout,
   } = useUser();
+  const username = loginUser?.username;
 
   useEffect(() => {
     if (location === "/" || location.includes("/home")) {
       setCurrentLocation("home");
-    } else if (location.includes("/history")) {
+    } else if (
+      location.includes("/history") ||
+      location === `/dweets/${username}`
+    ) {
       setCurrentLocation("history");
     } else {
       setCurrentLocation("");
     }
-  }, [location]);
+  }, [location, username]);
 
   const logoutHandler = () => {
     if (window.confirm("Do you want to log out?")) {
@@ -31,21 +35,27 @@ const Header = () => {
   };
   return (
     <header className={styles.header}>
-      <Link to="/">
-        <div className={styles.logo}>
+      <div className={styles.logo}>
+        <Link to="/">
           <img
             src="./img/logo.png"
             alt="Dwitter logo"
             className={styles.image}
           />
-          <div>
+        </Link>
+        <div>
+          <Link to="/">
             <h1>Dwitter</h1>
-            {loginUser && (
-              <span className={styles.username}>@{loginUser.username}</span>
-            )}
-          </div>
+          </Link>
+
+          {loginUser && (
+            <Link to={`/dweets/${username}`}>
+              <span className={styles.username}>@{username}</span>
+            </Link>
+          )}
         </div>
-      </Link>
+      </div>
+
       {loginUser ? (
         <nav className={styles.nav}>
           <Link to="/">

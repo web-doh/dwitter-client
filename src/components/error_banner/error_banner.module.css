@@ -1,0 +1,25 @@
+@value sizeRegular, fontRegular, weightBold from '../../common/size.css';
+@value makerWhite, makerBlack8, makerRed from '../../common/colors.css';
+
+.banner {
+  margin-top: -2px;
+  padding: sizeRegular;
+  font-size: fontRegular;
+  font-weight: weightBold;
+  color: makerRed;
+  background-color: makerWhite;
+  border-top: 2px solid makerRed;
+  border-bottom: 2px solid makerRed;
+  animation: slide 300ms ease-in-out;
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-25%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -28,15 +28,24 @@ span {
   font-weight: weightRegular;
 }
 
+input,
 textarea {
-  width: 100%;
-  padding: sizeRegular 0;
-  resize: none;
   font-family: mainFont;
-  font-size: fontMedium;
   font-weight: weightRegular;
 }
 
+input {
+  font-size: fontRegular;
+}
+
+textarea {
+  width: 100%;
+  padding: sizeRegular 0;
+  font-size: fontMedium;
+  resize: none;
+}
+
+input::placeholder,
 textarea::placeholder {
   color: makerGray;
 }

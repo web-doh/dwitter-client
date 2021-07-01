@@ -1,6 +1,6 @@
+import { LoginProps, SignUpProps } from "./../../service/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { createAsyncAction } from "typesafe-actions";
-import { IRequest } from "../../service/auth";
 
 // action type
 export const SIGNUP = {
@@ -29,13 +29,13 @@ export const signupAsync = createAsyncAction(
   SIGNUP.REQUEST,
   SIGNUP.SUCCESS,
   SIGNUP.FAILURE
-)<IRequest, AxiosResponse, AxiosError>();
+)<SignUpProps, AxiosResponse, AxiosError>();
 
 export const loginAsync = createAsyncAction(
   LOGIN.REQUEST,
   LOGIN.SUCCESS,
   LOGIN.FAILURE
-)<IRequest, AxiosResponse, AxiosError>();
+)<LoginProps, AxiosResponse, AxiosError>();
 
 export const meAsync = createAsyncAction(ME.REQUEST, ME.SUCCESS, ME.FAILURE)<
   any,

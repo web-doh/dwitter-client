@@ -1,0 +1,23 @@
+@value sizeRegular, sizeBig, fontRegular from '../../common/size.css';
+@value makerBlue from '../../common/colors.css';
+
+.container {
+  width: 90%;
+  min-height: 33.3vh;
+  margin: sizeBig auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  margin-left: sizeRegular;
+  font-size: fontRegular;
+  color: makerBlue;
+}

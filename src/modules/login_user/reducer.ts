@@ -21,26 +21,35 @@ const initialState: UserState = {
 
 const loginUser = createReducer<UserState>(initialState, {
   [SIGNUP.SUCCESS]: (state, { payload }) => {
-    const newUser = payload.data;
+    const { username, profile_url } = payload.data;
     return {
       ...state,
-      loginUser: newUser,
+      loginUser: {
+        username,
+        profile_url,
+      },
       isLoading: false,
     };
   },
   [LOGIN.SUCCESS]: (state, { payload }) => {
-    const loginUser = payload.data;
+    const { username, profile_url } = payload.data;
     return {
       ...state,
-      loginUser,
+      loginUser: {
+        username,
+        profile_url,
+      },
       isLoading: false,
     };
   },
   [ME.SUCCESS]: (state, { payload }) => {
-    const loginUser = payload.data;
+    const { username, profile_url } = payload.data;
     return {
       ...state,
-      loginUser,
+      loginUser: {
+        username,
+        profile_url,
+      },
       isLoading: false,
     };
   },
