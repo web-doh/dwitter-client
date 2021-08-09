@@ -1,5 +1,5 @@
 import { StorageConstructor, Storage } from "../db/token";
-import { Network, NetworkConstructor } from "../util/httpNetwork";
+import { Http, HttpConstructor } from "../network/http";
 
 export type PostProps = {
   body: string;
@@ -11,13 +11,14 @@ export type UpdateProps = {
 
 type TweetServiceConstructorProps = {
   baseURL: string;
-  httpConstructor: NetworkConstructor;
+  httpConstructor: HttpConstructor;
   tokenStorageConstructor: StorageConstructor;
 };
 
 export default class TweetService {
-  private http: Network;
+  private http: Http;
   private tokenStorage: Storage;
+
   constructor({
     baseURL,
     httpConstructor,

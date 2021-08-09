@@ -1,8 +1,9 @@
 import { takeEvery } from "@redux-saga/core/effects";
 import TokenStorage from "../../db/token";
+import HttpClient from "../../network/http";
 import AuthService from "../../service/auth";
 import { createAsyncSaga } from "../../util/asyncUtils";
-import HttpClient from "../../util/httpNetwork";
+
 import { signupAsync, loginAsync, logoutAsync, meAsync } from "./actions";
 
 const baseURL = process.env.REACT_APP_BASE_URL as string;

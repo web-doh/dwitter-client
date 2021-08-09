@@ -19,7 +19,7 @@ const Header = () => {
       setCurrentLocation("home");
     } else if (
       location.includes("/history") ||
-      location === `/dweets/${username}`
+      location === `/tweets/${username}`
     ) {
       setCurrentLocation("history");
     } else {
@@ -49,7 +49,7 @@ const Header = () => {
           </Link>
 
           {loginUser && (
-            <Link to={`/dweets/${username}`}>
+            <Link to={`/tweets/${username}`}>
               <span className={styles.username}>@{username}</span>
             </Link>
           )}

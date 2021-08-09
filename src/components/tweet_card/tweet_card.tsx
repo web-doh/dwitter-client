@@ -80,7 +80,7 @@ const TweetCard = ({
             <header className={styles.header}>
               <div>
                 <span className={styles.name}>{name}</span>
-                <Link to={`/dweets/${username}`}>
+                <Link to={`/tweets/${username}`}>
                   <span className={styles.username}>@{username}</span>
                 </Link>
                 <span>

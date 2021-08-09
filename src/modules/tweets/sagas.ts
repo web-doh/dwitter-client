@@ -3,7 +3,7 @@ import { takeEvery } from "@redux-saga/core/effects";
 import TweetService from "../../service/tweets";
 import TokenStorage from "../../db/token";
 import { createAsyncSaga } from "../../util/asyncUtils";
-import HttpClient from "../../util/httpNetwork";
+import HttpClient from "../../network/http";
 
 const baseURL = process.env.REACT_APP_BASE_URL as string;
 const tweetService = new TweetService({

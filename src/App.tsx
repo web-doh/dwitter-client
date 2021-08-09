@@ -42,7 +42,7 @@ function App({ tokenDB }: AppProps) {
           </PrivateRoute>
           <PrivateRoute
             exact
-            path={["/history", "/dweets/:username"]}
+            path={["/history", "/tweets/:username"]}
             isAuthenticated={loginUser ? true : false}
           >
             <History loginUser={loginUser?.username || ""} />

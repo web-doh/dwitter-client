@@ -1,14 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-export interface Network {
+export interface Http {
   axios(url: string, options: AxiosRequestConfig): Promise<AxiosResponse>;
 }
 
-export type NetworkConstructor = {
-  new (baseURL: string): Network;
+export type HttpConstructor = {
+  new (baseURL: string): Http;
 };
 
-export default class HttpClient implements Network {
+export default class HttpClient implements Http {
   constructor(private readonly baseURL: string) {}
 
   async axios(url: string, options: AxiosRequestConfig) {

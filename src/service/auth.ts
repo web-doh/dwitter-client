@@ -1,9 +1,9 @@
-import { Network, NetworkConstructor } from "./../util/httpNetwork";
+import { Http, HttpConstructor } from "./../network/http";
 import { Storage, StorageConstructor } from "../db/token";
 
 type AuthServiceConstructorProps = {
   baseURL: string;
-  httpConstructor: NetworkConstructor;
+  httpConstructor: HttpConstructor;
   tokenStorageConstructor: StorageConstructor;
 };
 
@@ -22,7 +22,7 @@ export type LoginProps = {
 };
 
 export default class AuthService {
-  private http: Network;
+  private http: Http;
   private tokenStorage: Storage;
   constructor({
     baseURL,
