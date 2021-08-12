@@ -52,7 +52,7 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
     };
   },
   [DELETE_TWEET.SUCCESS]: (state, { payload }) => {
-    const deleted = (payload as AxiosResponse).data as string;
+    const deleted = (payload as AxiosResponse).data as number;
 
     return {
       ...state,

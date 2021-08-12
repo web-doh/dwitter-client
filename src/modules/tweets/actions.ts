@@ -47,4 +47,4 @@ export const deleteAsync = createAsyncAction(
   DELETE_TWEET.REQUEST,
   DELETE_TWEET.SUCCESS,
   DELETE_TWEET.FAILURE
-)<string, AxiosResponse, AxiosError>();
+)<number, AxiosResponse, AxiosError>();

@@ -12,13 +12,10 @@ type EditTweetFormProps = {
 };
 
 const EditTweetForm = ({ tweet, onClose, onUpdate }: EditTweetFormProps) => {
-  const {
-    data: newTweet,
-    errors,
-    submitting,
-    handleChange,
-    handleSubmit,
-  } = useForm<UpdateProps, TweetError>({
+  const { errors, submitting, handleChange, handleSubmit } = useForm<
+    UpdateProps,
+    TweetError
+  >({
     initialValues: { id: tweet.id, body: "" },
     onSubmit: onUpdate,
     validate: validateTweet,
@@ -32,7 +29,6 @@ const EditTweetForm = ({ tweet, onClose, onUpdate }: EditTweetFormProps) => {
           placeholder="Edit your tweet"
           defaultValue={tweet.body}
           name="body"
-          value={newTweet.body}
           className={styles.textarea}
           onChange={handleChange}
           required

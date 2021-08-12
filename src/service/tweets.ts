@@ -6,7 +6,7 @@ export type PostProps = {
 };
 
 export type UpdateProps = {
-  id: string;
+  id: number;
 } & PostProps;
 
 type TweetServiceConstructorProps = {
@@ -61,7 +61,7 @@ export default class TweetService {
     });
   };
 
-  delete = async (tweetId: string) => {
+  delete = async (tweetId: number) => {
     return this.http.axios(`/tweets/${tweetId}`, {
       method: "delete",
       headers: this.getHeaders(),

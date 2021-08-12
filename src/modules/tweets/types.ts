@@ -4,8 +4,8 @@ import * as actions from "./actions";
 export type TweetAction = ActionType<typeof actions>;
 
 export type tweet = {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
   username: string;
   name: string;
   body: string;

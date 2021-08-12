@@ -13,7 +13,7 @@ type TweetCardProps = {
   tweet: tweet;
   isOwner: boolean;
   onUpdate(tweet: UpdateProps): void;
-  onDeleteHandler(id: string): void;
+  onDeleteHandler(id: number): void;
 };
 
 type SelectOption = {
@@ -58,7 +58,7 @@ const TweetCard = ({
     setEditing(true);
   };
   const onCloseEditor = () => setEditing(false);
-  const onDelete = (id: string) => {
+  const onDelete = (id: number) => {
     onCloseWindow();
     onDeleteHandler(id);
   };
