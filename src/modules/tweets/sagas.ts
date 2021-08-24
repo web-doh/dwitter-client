@@ -1,15 +1,15 @@
 import { getAsync, postAsync, updateAsync, deleteAsync } from "./actions";
 import { takeEvery } from "@redux-saga/core/effects";
 import TweetService from "../../service/tweets";
-import TokenStorage from "../../db/token";
 import { createAsyncSaga } from "../../util/asyncUtils";
 import HttpClient from "../../network/http";
+import { fetchCsrfToken } from "../../hooks/useUser";
 
 const baseURL = process.env.REACT_APP_BASE_URL as string;
 const tweetService = new TweetService({
   baseURL,
+  getCsrfToken: () => fetchCsrfToken(),
   httpConstructor: HttpClient,
-  tokenStorageConstructor: TokenStorage,
 });
 
 const asyncGetSaga = createAsyncSaga(getAsync, tweetService.get);

@@ -12,4 +12,5 @@ export type UserState = {
   loginUser: user | null;
   isLoading: boolean;
   errorMessage: string | null;
+  csrfToken: string | null;
 };

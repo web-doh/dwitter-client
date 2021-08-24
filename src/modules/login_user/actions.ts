@@ -24,6 +24,12 @@ export const LOGOUT = {
   FAILURE: "loginUser/LOGOUT_FAILURE",
 };
 
+export const CSRF = {
+  REQUEST: "loginUser/CSRF_REQUEST",
+  SUCCESS: "loginUser/CSRF_SUCCESS",
+  FAILURE: "loginUser/CSRF_FAILURE",
+};
+
 // action 비동기 생성 함수
 export const signupAsync = createAsyncAction(
   SIGNUP.REQUEST,
@@ -48,3 +54,9 @@ export const logoutAsync = createAsyncAction(
   LOGOUT.SUCCESS,
   LOGOUT.FAILURE
 )<any, any, any>();
+
+export const csrfAsync = createAsyncAction(
+  CSRF.REQUEST,
+  CSRF.SUCCESS,
+  CSRF.FAILURE
+)<any, AxiosResponse, AxiosError>();

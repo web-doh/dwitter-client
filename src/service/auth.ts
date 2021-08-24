@@ -1,10 +1,9 @@
 import { Http, HttpConstructor } from "./../network/http";
-import { Storage, StorageConstructor } from "../db/token";
 
 type AuthServiceConstructorProps = {
   baseURL: string;
+  getCsrfToken: Function;
   httpConstructor: HttpConstructor;
-  tokenStorageConstructor: StorageConstructor;
 };
 
 export type SignUpProps = {
@@ -23,48 +22,44 @@ export type LoginProps = {
 
 export default class AuthService {
   private http: Http;
-  private tokenStorage: Storage;
   constructor({
     baseURL,
+    getCsrfToken,
     httpConstructor,
-    tokenStorageConstructor,
   }: AuthServiceConstructorProps) {
-    this.http = new httpConstructor(baseURL);
-    this.tokenStorage = new tokenStorageConstructor();
+    this.http = new httpConstructor(baseURL, getCsrfToken);
   }
 
   signup = async (userInfo: SignUpProps) => {
-    const response = await this.http.axios(`/auth/signup`, {
+    return this.http.axios(`/auth/signup`, {
       method: "post",
       data: userInfo,
     });
-
-    this.tokenStorage.save(response.data.token);
-
-    return response;
   };
 
   login = async (userInfo: LoginProps) => {
-    const response = await this.http.axios(`/auth/login`, {
+    return this.http.axios(`/auth/login`, {
       method: "post",
       data: userInfo,
-    });
-
-    this.tokenStorage.save(response.data.token);
-
-    return response;
-  };
-
-  me = async () => {
-    const token = this.tokenStorage.get();
-
-    return this.http.axios(`/auth/me`, {
-      method: "get",
-      headers: { Authorization: `Bearer ${token}` },
     });
   };
 
   logout = async () => {
-    this.tokenStorage.clear();
+    return this.http.axios(`/auth/logout`, {
+      method: "post",
+    });
+  };
+
+  me = async () => {
+    return this.http.axios(`/auth/me`, {
+      method: "get",
+    });
+  };
+
+  // APP 메모리에 포함하고 있다가 추가 네트워크 요청시 헤더에 포함해줌
+  csrfToken = async () => {
+    return this.http.axios(`/auth/csrf-token`, {
+      method: "get",
+    });
   };
 }

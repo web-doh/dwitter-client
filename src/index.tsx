@@ -5,15 +5,13 @@ import App from "./app";
 import { Provider } from "react-redux";
 import { configureStore } from "./modules";
 import { BrowserRouter } from "react-router-dom";
-import TokenStorage from "./db/token";
 
 const store = configureStore();
-const tokenDB = new TokenStorage();
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App tokenDB={tokenDB} />
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

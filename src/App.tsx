@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import styles from "./app.module.css";
 import Header from "./components/header/header";
-import TokenStorage from "./db/token";
 import useUser from "./hooks/useUser";
 import History from "./pages/history/history";
 import Home from "./pages/home/home";
@@ -10,22 +9,22 @@ import Login from "./pages/login/login";
 import NotFound from "./pages/not_found/not_found";
 import PrivateRoute from "./routes/private_route";
 
-type AppProps = {
-  tokenDB: TokenStorage;
-};
-
-function App({ tokenDB }: AppProps) {
+function App() {
   const {
     loginUser: { loginUser },
     onMe,
+    onCsrfToken,
   } = useUser();
 
   useEffect(() => {
-    const token = tokenDB.get();
-    if (token) {
-      onMe();
-    }
-  }, [useUser, loginUser?.username]);
+    onCsrfToken();
+  }, [useUser]);
+
+  useEffect(() => {
+    if (!loginUser) return;
+
+    onMe();
+  }, [useUser]);
 
   return (
     <div className={styles.app}>

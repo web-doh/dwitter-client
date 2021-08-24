@@ -8,6 +8,8 @@ import {
   meAsync,
   SIGNUP,
   signupAsync,
+  CSRF,
+  csrfAsync,
 } from "./actions";
 import { createReducer } from "typesafe-actions";
 import { createAsyncReducer } from "../../util/asyncUtils";
@@ -17,6 +19,7 @@ const initialState: UserState = {
   loginUser: null,
   isLoading: false,
   errorMessage: null,
+  csrfToken: null,
 };
 
 const loginUser = createReducer<UserState>(initialState, {
@@ -57,11 +60,22 @@ const loginUser = createReducer<UserState>(initialState, {
     ...state,
     loginUser: null,
     isLoading: false,
+    csrfToken: null,
   }),
+  [CSRF.SUCCESS]: (state, { payload }) => {
+    const { csrfToken } = payload.data;
+    return {
+      ...state,
+      isLoading: false,
+      csrfToken,
+    };
+  },
+
   ...createAsyncReducer(signupAsync),
   ...createAsyncReducer(meAsync),
   ...createAsyncReducer(loginAsync),
   ...createAsyncReducer(logoutAsync),
+  ...createAsyncReducer(csrfAsync),
 });
 
 export default loginUser;
