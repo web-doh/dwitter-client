@@ -30,7 +30,6 @@ export default class HttpClient implements Http {
       baseURL,
       headers: {
         "Content-Type": "application/json",
-        "dwitter-csrf-token": getCsrfToken(),
       },
       withCredentials: true, // 브라우저가 자동으로 쿠키에 있는 토큰을 추가해서 보내줌 (fetch의 credentials: 'include' 기능 - 서버와 세트)
     });
@@ -53,12 +52,15 @@ export default class HttpClient implements Http {
       const res = await this.client({
         url,
         ...options,
+        headers: {
+          "dwitter-csrf-token": this.getCsrfToken(),
+        },
       });
 
       return res;
     } catch (err) {
       if (err.response) {
-        throw new Error(err.response.data.message || "Something wrong!");
+        throw new Error(err.response.data || "Something wrong!");
       }
       throw new Error("Connection Error!");
     }

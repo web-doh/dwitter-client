@@ -1,6 +1,7 @@
 import { MouseEventHandler, useState } from "react";
 import { Link } from "react-router-dom";
 import { MoreHorizontal } from "react-feather";
+
 import { tweet } from "../../modules/tweets/types";
 import parseDate from "../../util/parseDate";
 import Avatar from "../avatar/avatar";

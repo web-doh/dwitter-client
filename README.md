@@ -84,7 +84,7 @@ yarn start
 1. git을 클론합니다.
 
 ```
-git clone https://github.com/web-doh/dwitter-server.git
+git clone https://github.com/web-doh/dwitter-client.git
 cd dwitter-server/
 ```
 

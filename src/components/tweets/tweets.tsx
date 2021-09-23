@@ -1,20 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import useTweets from "../../hooks/useTweets";
-import useUser from "../../hooks/useUser";
-import { user } from "../../modules/login_user/types";
-import TweetCard from "../tweet_card/tweet_card";
+import { tweet } from "../../modules/tweets/types";
+import TweetService from "../../service/tweets";
+import ErrorBanner from "../error_banner/error_banner";
 import NewTweetForm from "../new_tweet_form/new_tweet_form";
+import TweetCard from "../tweet_card/tweet_card";
+import styles from "./tweets.module.css";
 
 type TweetsProps = {
-  username?: string;
+  name?: string;
+  loginUser: { username: string; profile_url: string };
+  tweetService: TweetService;
 };
-const Tweets = ({ username }: TweetsProps) => {
+const Tweets = ({
+  name,
+  loginUser: { username, profile_url },
+  tweetService,
+}: TweetsProps) => {
+  const [error, setError] = useState("");
   const {
-    loginUser: { loginUser },
-  } = useUser() as { loginUser: { loginUser: user } };
-
-  const {
-    tweets: { tweets },
+    tweets: { tweets, errorMessage },
     onGetTweets,
     onPostTweet,
     onUpdateTweet,
@@ -22,30 +28,58 @@ const Tweets = ({ username }: TweetsProps) => {
   } = useTweets();
 
   useEffect(() => {
-    if (!loginUser) return;
+    onGetTweets(name);
 
-    onGetTweets(username);
-  }, [useUser, username]);
+    const stopSyncNew = tweetService.onSyncNew((tweet: tweet) => {
+      if (tweet.username === username) return;
+
+      window.confirm(`${tweet.username}님의 새 트윗 확인:
+        ${tweet.body}`) && onGetTweets(name);
+    });
+
+    return () => {
+      stopSyncNew();
+    }; // tweets 컴포넌트가 끝나면 sync도 종료
+  }, [tweetService, useTweets]);
+
+  useEffect(() => {
+    if (!errorMessage) return;
+
+    onError(errorMessage);
+  }, [errorMessage]);
+
+  const onError = (error: string) => {
+    setError(error);
+    setTimeout(() => {
+      setError("");
+    }, 3000);
+  };
 
   return (
     <>
-      {!username && (
+      {error && <ErrorBanner message={error} />}
+      {!name && (
         <NewTweetForm
-          username={loginUser.username}
-          url={loginUser.profile_url}
+          username={username}
+          url={profile_url}
           onPost={onPostTweet}
+          onError={onError}
         />
       )}
       <ul>
-        {tweets.map((tweet) => (
-          <TweetCard
-            key={tweet.id}
-            tweet={tweet}
-            isOwner={loginUser.username === tweet.username}
-            onUpdate={onUpdateTweet}
-            onDeleteHandler={onDeleteTweet}
-          />
-        ))}
+        {tweets.length ? (
+          tweets.map((tweet) => (
+            <TweetCard
+              key={tweet.id}
+              tweet={tweet}
+              isOwner={username === tweet.username}
+              onUpdate={onUpdateTweet}
+              onDeleteHandler={onDeleteTweet}
+            />
+          ))
+        ) : (
+          <h3 className={styles.info}>No tweets yet!</h3>
+        )}
       </ul>
     </>
   );

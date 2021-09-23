@@ -1,9 +1,10 @@
-import createSagaMiddleware from "redux-saga";
-import { combineSagas } from "../util/asyncUtils";
 import { applyMiddleware, combineReducers, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+import { combineSagas } from "../util/asyncUtils";
 import loginUser from "./login_user";
 import tweets from "./tweets";
-import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   loginUser: loginUser.reducer,

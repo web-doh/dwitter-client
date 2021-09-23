@@ -19,7 +19,9 @@ export function createAsyncSaga<
     [SuccessType, [SuccessPayload, undefined]],
     [FailureType, [FailurePayload, undefined]]
   >,
-  asyncFunction: PromiseCreatorFunction<RequestPayload, SuccessPayload>
+  asyncFunction: PromiseCreatorFunction<RequestPayload, SuccessPayload>,
+  successFunc?: any,
+  failureFunc?: any
 ) {
   return function* saga(action: ReturnType<typeof asyncAction.request>) {
     try {
@@ -28,8 +30,15 @@ export function createAsyncSaga<
         (action as any).payload
       );
       yield put(asyncAction.success(response)); // dispatch
+
+      if (successFunc) {
+        yield call(successFunc, response);
+      }
     } catch (err) {
-      yield put(asyncAction.failure(err));
+      yield put(asyncAction.failure(err as FailurePayload));
+      if (failureFunc) {
+        yield call(successFunc, err);
+      }
     }
   };
 }

@@ -15,7 +15,11 @@ const NotFound = memo(() => {
 
   return (
     <section className={styles.container}>
-      <img src="./img/logo.png" alt="Dwitter logo" className={styles.logo} />
+      <img
+        src={process.env.PUBLIC_URL + "/img/logo.png"}
+        alt="Dwitter logo"
+        className={styles.logo}
+      />
       <h1>Sorry, page not found ;(</h1>
       <div className={styles.buttons}>
         <div className={styles.button}>

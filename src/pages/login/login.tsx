@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
+
 import useUser from "../../hooks/useUser";
 import LoginForm from "../../components/login_form/login_form";
 import styles from "./login.module.css";
-import { useState } from "react";
 import SignUpForm from "../../components/sign-up_form/sign-up_form";
 import ErrorBanner from "../../components/error_banner/error_banner";
-import { useEffect } from "react";
 
 const Login = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -17,7 +17,11 @@ const Login = () => {
 
   useEffect(() => {
     if (errorMessage) {
-      if (errorMessage === "Authentication Error") return;
+      if (
+        errorMessage === "Authentication Error" ||
+        errorMessage === "Something wrong!"
+      )
+        return;
       setError(errorMessage);
     }
   }, [errorMessage]);

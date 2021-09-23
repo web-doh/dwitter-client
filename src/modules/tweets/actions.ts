@@ -1,6 +1,7 @@
-import { PostProps, UpdateProps } from "../../service/tweets";
 import { createAsyncAction } from "typesafe-actions";
 import { AxiosError, AxiosResponse } from "axios";
+
+import { PostProps, UpdateProps } from "../../service/tweets";
 
 // action type
 export const GET_TWEETS = {

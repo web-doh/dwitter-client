@@ -1,4 +1,5 @@
 import { Http, HttpConstructor } from "../network/http";
+import Socket from "../network/socket";
 
 export type PostProps = {
   body: string;
@@ -10,19 +11,23 @@ export type UpdateProps = {
 
 type TweetServiceConstructorProps = {
   baseURL: string;
+  socket: Socket;
   getCsrfToken: Function;
   httpConstructor: HttpConstructor;
 };
 
 export default class TweetService {
   private http: Http;
+  private socket: Socket;
 
   constructor({
     baseURL,
+    socket,
     getCsrfToken,
     httpConstructor,
   }: TweetServiceConstructorProps) {
     this.http = new httpConstructor(baseURL, getCsrfToken);
+    this.socket = socket;
   }
 
   get = async (username: string = "") => {
@@ -51,4 +56,11 @@ export default class TweetService {
       method: "delete",
     });
   };
+
+  /**
+   * @param callback : 새로운 트윗이 생겼을 때 하고 싶은 함수
+   * @returns
+   */
+  onSyncNew = (callback: Function) =>
+    this.socket.onSync("tweets-post", callback);
 }

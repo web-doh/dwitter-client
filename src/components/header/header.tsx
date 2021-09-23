@@ -1,36 +1,19 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import styles from "./header.module.css";
 
-const Header = () => {
-  const history = useHistory();
-  const location = useLocation().pathname;
-  const [currentLocation, setCurrentLocation] = useState("");
-  const {
-    loginUser: { loginUser },
-    onLogout,
-  } = useUser();
+type HeaderProps = {
+  loginUser: { username: string; profile_url: string };
+};
+const Header = ({ loginUser }: HeaderProps) => {
+  const location = useLocation();
+  const path = location.pathname;
+  const { onLogout } = useUser();
   const username = loginUser?.username;
-
-  useEffect(() => {
-    if (location === "/" || location.includes("/home")) {
-      setCurrentLocation("home");
-    } else if (
-      location.includes("/history") ||
-      location === `/tweets/${username}`
-    ) {
-      setCurrentLocation("history");
-    } else {
-      setCurrentLocation("");
-    }
-  }, [location, username]);
 
   const logoutHandler = () => {
     if (window.confirm("Do you want to log out?")) {
       onLogout();
-      history.push("/");
     }
   };
   return (
@@ -38,7 +21,7 @@ const Header = () => {
       <div className={styles.logo}>
         <Link to="/">
           <img
-            src="./img/logo.png"
+            src={process.env.PUBLIC_URL + "/img/logo.png"}
             alt="Dwitter logo"
             className={styles.image}
           />
@@ -58,33 +41,35 @@ const Header = () => {
 
       {loginUser ? (
         <nav className={styles.nav}>
-          <Link to="/">
-            <h2
-              className={`${styles.menu} ${
-                currentLocation === "home" && styles.selected
-              }`}
-            >
-              Home
-            </h2>
-          </Link>
-          <Link to="/history">
-            <h2
-              className={`${styles.menu} ${
-                currentLocation === "history" && styles.selected
-              }`}
-            >
-              History
-            </h2>
-          </Link>
+          <NavLink
+            to="/"
+            activeClassName={styles.selected}
+            isActive={() => {
+              return path === "/" || path.includes("/home");
+            }}
+          >
+            <h2 className={styles.menu}>Home</h2>
+          </NavLink>
+          <NavLink
+            to="/history"
+            activeClassName={styles.selected}
+            isActive={() => {
+              return (
+                path.includes("/history") || path === `/tweets/${username}`
+              );
+            }}
+          >
+            <h2 className={styles.menu}>History</h2>
+          </NavLink>
           <button className={styles.button} onClick={logoutHandler}>
             <h2 className={styles.menu}>Logout</h2>
           </button>
         </nav>
       ) : (
         <nav>
-          <Link to="/login">
+          <NavLink to="/login" exact activeClassName={styles.selected}>
             <h2 className={`${styles.menu} ${styles.selected}`}>Login</h2>
-          </Link>
+          </NavLink>
         </nav>
       )}
     </header>

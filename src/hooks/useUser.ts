@@ -1,6 +1,8 @@
+import { createRef, useImperativeHandle } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { csrfAsync } from "./../modules/login_user/actions";
 import { LoginProps, SignUpProps } from "./../service/auth";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../modules";
 import {
   loginAsync,
@@ -8,8 +10,8 @@ import {
   meAsync,
   signupAsync,
 } from "../modules/login_user/actions";
-import { createRef, useImperativeHandle } from "react";
 
+const tokenRef = createRef();
 const csrfRef = createRef();
 
 export default function useUser() {
@@ -17,6 +19,7 @@ export default function useUser() {
   const dispatch = useDispatch();
 
   useImperativeHandle(csrfRef, () => loginUser.csrfToken);
+  useImperativeHandle(tokenRef, () => loginUser.loginUser?.token);
 
   const onSignup = (userInfo: SignUpProps) =>
     dispatch(signupAsync.request(userInfo));
@@ -29,4 +32,5 @@ export default function useUser() {
   return { loginUser, onSignup, onLogin, onLogout, onMe, onCsrfToken };
 }
 
+export const fetchToken = () => tokenRef.current;
 export const fetchCsrfToken = () => csrfRef.current;

@@ -5,6 +5,7 @@ export type UserAction = ActionType<typeof actions>;
 
 export type user = {
   username: string;
+  token: string | null;
   profile_url?: string;
 };
 

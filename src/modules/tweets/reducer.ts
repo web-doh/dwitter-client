@@ -1,4 +1,6 @@
 import { AxiosResponse } from "axios";
+import { createReducer } from "typesafe-actions";
+
 import {
   DELETE_TWEET,
   GET_TWEETS,
@@ -9,7 +11,6 @@ import {
   updateAsync,
   deleteAsync,
 } from "./actions";
-import { createReducer } from "typesafe-actions";
 import { tweet, TweetAction, TweetState } from "./types";
 import { createAsyncReducer } from "../../util/asyncUtils";
 

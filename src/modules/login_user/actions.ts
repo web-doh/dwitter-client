@@ -1,6 +1,6 @@
-import { LoginProps, SignUpProps } from "./../../service/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { createAsyncAction } from "typesafe-actions";
+import { LoginProps, SignUpProps } from "./../../service/auth";
 
 // action type
 export const SIGNUP = {
