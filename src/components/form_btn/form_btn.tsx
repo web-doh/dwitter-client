@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import styles from "./form_btn.module.css";
 
 type FormBtnProps = {
@@ -15,7 +15,7 @@ const FormBtn = ({ text, color, submitting, onClickHandler }: FormBtnProps) => {
       onClick={onClickHandler && onClickHandler}
       disabled={submitting}
     >
-      {text}
+      {submitting ? <div className={styles.loading}></div> : text}
     </button>
   );
 };

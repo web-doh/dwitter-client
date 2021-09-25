@@ -9,3 +9,9 @@ body {
   background-color: makerLightGray;
   font-family: mainFont;
 }
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}

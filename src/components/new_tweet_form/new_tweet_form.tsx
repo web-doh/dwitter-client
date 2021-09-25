@@ -25,11 +25,16 @@ const NewTweetForm = ({
     submitting,
     handleChange,
     handleSubmit,
+    handleSubmitting,
   } = useForm<PostProps, TweetError>({
     initialValues: { body: "" },
     onSubmit: onPost,
     validate: validateTweet,
   });
+
+  useEffect(() => {
+    submitting && handleSubmitting(false);
+  }, [submitting]);
 
   useEffect(() => {
     if (!errors.body) return;
@@ -52,7 +57,7 @@ const NewTweetForm = ({
         ></textarea>
         <div className={styles.buttons}>
           <div className={styles.button}>
-            <FormBtn text="tweet" submitting={submitting} />
+            <FormBtn text="tweet" />
           </div>
         </div>
       </form>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { LoginProps } from "../../service/auth";
 import { LoginError, validateLogin } from "../../util/validate";
@@ -6,21 +7,27 @@ import styles from "./login_form.module.css";
 
 type LoginFormProps = {
   onLogin(userInfo: LoginProps): any;
+  isLoading: boolean;
 };
 
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const {
     data: userInfo,
     errors,
     submitting,
     handleChange,
     handleSubmit,
+    handleSubmitting,
   } = useForm<LoginProps, LoginError>({
     initialValues: { username: "", password: "" },
     onSubmit: onLogin,
     validate: validateLogin,
   });
   const { username, password } = userInfo;
+
+  useEffect(() => {
+    handleSubmitting(isLoading);
+  }, [isLoading]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>

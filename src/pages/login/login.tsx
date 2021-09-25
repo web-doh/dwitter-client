@@ -10,7 +10,7 @@ const Login = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [error, setError] = useState("");
   const {
-    loginUser: { errorMessage },
+    loginUser: { errorMessage, isLoading },
     onLogin,
     onSignup,
   } = useUser();
@@ -22,7 +22,7 @@ const Login = () => {
         errorMessage === "Something wrong!"
       )
         return;
-      setError(errorMessage);
+      onError(errorMessage);
     }
   }, [errorMessage]);
 
@@ -34,12 +34,19 @@ const Login = () => {
     }
   };
 
+  const onError = (error: string) => {
+    setError(error);
+    setTimeout(() => {
+      setError("");
+    }, 3000);
+  };
+
   return (
     <>
       {error && <ErrorBanner message={error} />}
       {mode === "login" && (
         <section className={styles.container}>
-          <LoginForm onLogin={onLogin} />
+          <LoginForm onLogin={onLogin} isLoading={isLoading} />
           <div className={styles.option}>
             <p>Don't have an account?</p>
             <button className={styles.button} onClick={onChangeMode}>
@@ -50,7 +57,7 @@ const Login = () => {
       )}
       {mode === "signup" && (
         <section className={styles.container}>
-          <SignUpForm onSignUp={onSignup} />
+          <SignUpForm onSignUp={onSignup} isLoading={isLoading} />
           <div className={styles.option}>
             <p>Already have an account?</p>
             <button className={styles.button} onClick={onChangeMode}>

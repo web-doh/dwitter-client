@@ -1,0 +1,45 @@
+@value sizeSmall, sizeRegular, sizeMedium, sizeBig from '../../common/size.css';
+@value makerWhite, makerBlue from '../../common/colors.css';
+
+.img {
+  position: relative;
+}
+
+.img svg {
+  fill: makerBlue;
+  stroke-width: 0;
+}
+
+.img::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 5rem;
+  height: 5rem;
+  box-shadow: 0 0 2rem 2rem inset #fff;
+  animation: loading 1.8s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  80% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

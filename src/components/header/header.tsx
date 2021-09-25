@@ -16,20 +16,22 @@ const Header = ({ loginUser }: HeaderProps) => {
       onLogout();
     }
   };
+
+  const forceUpdate = () => {
+    window.location.href = "/";
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link to="/">
-          <img
-            src={process.env.PUBLIC_URL + "/img/logo.png"}
-            alt="Dwitter logo"
-            className={styles.image}
-          />
-        </Link>
+        <img
+          src={process.env.PUBLIC_URL + "/img/logo.png"}
+          alt="Dwitter logo"
+          className={styles.image}
+          onClick={forceUpdate}
+        />
         <div>
-          <Link to="/">
-            <h1>Dwitter</h1>
-          </Link>
+          <h1 onClick={forceUpdate}>Dwitter</h1>
 
           {loginUser && (
             <Link to={`/tweets/${username}`}>

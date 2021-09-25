@@ -1,5 +1,5 @@
-@value makerBlue, makerRed from '../../common/colors.css';
-@value weightExtraBold from '../../common/size.css';
+@value makerWhite, makerBlue, makerRed from '../../common/colors.css';
+@value sizeLarge, weightExtraBold from '../../common/size.css';
 
 .button {
   width: inherit;
@@ -19,4 +19,27 @@
 
 .button:hover {
   opacity: 1;
+}
+
+.button:disabled:hover {
+  opacity: 0;
+}
+
+.loading {
+  width: sizeLarge;
+  height: sizeLarge;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 3px solid makerWhite;
+  border-top: 3px solid makerBlue;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

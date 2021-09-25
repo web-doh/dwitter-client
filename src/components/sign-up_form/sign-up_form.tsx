@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { SignUpProps } from "../../service/auth";
 import { SignUpError, validateSignup } from "../../util/validate";
@@ -6,15 +7,17 @@ import styles from "./sign-up_form.module.css";
 
 type SignUpFormProps = {
   onSignUp(userInfo: SignUpProps): any;
+  isLoading: boolean;
 };
 
-const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
+const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
   const {
     data: userInfo,
     errors,
     submitting,
     handleChange,
     handleSubmit,
+    handleSubmitting,
   } = useForm<SignUpProps, SignUpError>({
     initialValues: {
       username: "",
@@ -28,6 +31,10 @@ const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
     validate: validateSignup,
   });
   const { username, password1, password2, name, email, profile_url } = userInfo;
+
+  useEffect(() => {
+    handleSubmitting(isLoading);
+  }, [isLoading]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>

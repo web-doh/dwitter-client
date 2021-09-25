@@ -25,7 +25,7 @@ function loginSuccessHandler(payload: AxiosResponse) {
   const { username, profile_url } = payload.data;
 
   localStorage.setItem("user", JSON.stringify({ username, profile_url }));
-  window.location.reload();
+  window.location.replace("/");
 }
 
 function logoutSuccessHandler() {

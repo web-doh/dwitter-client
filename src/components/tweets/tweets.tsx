@@ -4,6 +4,7 @@ import useTweets from "../../hooks/useTweets";
 import { tweet } from "../../modules/tweets/types";
 import TweetService from "../../service/tweets";
 import ErrorBanner from "../error_banner/error_banner";
+import LoadingSpinner from "../loading_spinner/loading_spinner";
 import NewTweetForm from "../new_tweet_form/new_tweet_form";
 import TweetCard from "../tweet_card/tweet_card";
 import styles from "./tweets.module.css";
@@ -20,7 +21,7 @@ const Tweets = ({
 }: TweetsProps) => {
   const [error, setError] = useState("");
   const {
-    tweets: { tweets, errorMessage },
+    tweets: { tweets, isLoading, errorMessage },
     onGetTweets,
     onPostTweet,
     onUpdateTweet,
@@ -40,7 +41,7 @@ const Tweets = ({
     return () => {
       stopSyncNew();
     }; // tweets 컴포넌트가 끝나면 sync도 종료
-  }, [tweetService, useTweets]);
+  }, [tweetService, useTweets, name]);
 
   useEffect(() => {
     if (!errorMessage) return;
@@ -77,8 +78,19 @@ const Tweets = ({
               onDeleteHandler={onDeleteTweet}
             />
           ))
+        ) : isLoading ? (
+          <div className={styles.info}>
+            <LoadingSpinner size="5rem" />
+          </div>
         ) : (
-          <h3 className={styles.info}>No tweets yet!</h3>
+          <div className={styles.info}>
+            <h3 className={styles.title}>
+              {name ? `@${name} hasn't Dweeted` : "No Dweets yet"}
+            </h3>
+            <p className={styles.content}>
+              If Dweets, Dweets will show up here.
+            </p>
+          </div>
         )}
       </ul>
     </>

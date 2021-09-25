@@ -30,10 +30,14 @@ export default function useForm<P extends FormProps, E extends ValidateError>({
     setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     validate && setErrors(validate(data));
+  };
+
+  const handleSubmitting = (isLoading: boolean) => {
+    setSubmitting(isLoading);
   };
 
   useEffect(() => {
@@ -43,9 +47,15 @@ export default function useForm<P extends FormProps, E extends ValidateError>({
         setData(initialValues);
         successHandler && successHandler();
       }
-      setSubmitting(false);
     }
   }, [errors, submitting]);
 
-  return { data, errors, submitting, handleChange, handleSubmit };
+  return {
+    data,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+    handleSubmitting,
+  };
 }
