@@ -1,24 +1,26 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useHistory } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import styles from "./header.module.css";
 
-type HeaderProps = {
-  loginUser: { username: string; profile_url: string };
-};
-const Header = ({ loginUser }: HeaderProps) => {
+const Header = () => {
   const location = useLocation();
+  const history = useHistory();
   const path = location.pathname;
-  const { onLogout } = useUser();
+  const {
+    loginUser: { loginUser },
+    onLogout,
+  } = useUser();
   const username = loginUser?.username;
 
   const logoutHandler = () => {
     if (window.confirm("Do you want to log out?")) {
       onLogout();
+      history.push("/login");
     }
   };
 
   const forceUpdate = () => {
-    window.location.href = "/";
+    history.push("/");
   };
 
   return (

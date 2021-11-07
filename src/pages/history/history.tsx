@@ -1,20 +1,22 @@
 import { useParams } from "react-router-dom";
 
 import Tweets from "../../components/tweets/tweets";
+import useUser from "../../hooks/useUser";
 import TweetService from "../../service/tweets";
 
 type HistoryProps = {
-  loginUser: { username: string; profile_url: string };
   tweetService: TweetService;
 };
 
-const History = ({ loginUser, tweetService }: HistoryProps) => {
+const History = ({ tweetService }: HistoryProps) => {
   let { username }: { username: string } = useParams();
+  const {
+    loginUser: { loginUser },
+  } = useUser();
 
   return (
     <Tweets
-      name={username || loginUser.username}
-      loginUser={loginUser}
+      name={username || loginUser?.username}
       tweetService={tweetService}
     />
   );

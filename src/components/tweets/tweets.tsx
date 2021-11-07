@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import useTweets from "../../hooks/useTweets";
+import useUser from "../../hooks/useUser";
+import { user, UserState } from "../../modules/login_user/types";
 import { tweet } from "../../modules/tweets/types";
 import TweetService from "../../service/tweets";
 import ErrorBanner from "../error_banner/error_banner";
@@ -11,14 +13,9 @@ import styles from "./tweets.module.css";
 
 type TweetsProps = {
   name?: string;
-  loginUser: { username: string; profile_url: string };
   tweetService: TweetService;
 };
-const Tweets = ({
-  name,
-  loginUser: { username, profile_url },
-  tweetService,
-}: TweetsProps) => {
+const Tweets = ({ name, tweetService }: TweetsProps) => {
   const [error, setError] = useState("");
   const {
     tweets: { tweets, isLoading, errorMessage },
@@ -27,6 +24,11 @@ const Tweets = ({
     onUpdateTweet,
     onDeleteTweet,
   } = useTweets();
+
+  const {
+    loginUser: { loginUser },
+  }: { loginUser: UserState } = useUser();
+  const { username, profile_url } = loginUser as user;
 
   useEffect(() => {
     onGetTweets(name);

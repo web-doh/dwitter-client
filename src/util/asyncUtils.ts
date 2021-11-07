@@ -1,5 +1,12 @@
 import { AsyncActionCreatorBuilder, getType } from "typesafe-actions";
 import { call, ForkEffect, put } from "redux-saga/effects";
+import {
+  buffers,
+  EventChannel,
+  eventChannel,
+  Subscribe,
+} from "@redux-saga/core";
+import { AxiosResponse } from "axios";
 
 type PromiseCreatorFunction<P, T> =
   | ((payload: P) => Promise<T>)
@@ -39,6 +46,41 @@ export function createAsyncSaga<
       if (failureFunc) {
         yield call(successFunc, err);
       }
+    }
+  };
+}
+
+// socket 이벤트 채널 생성 함수
+export function createSocketChannel(
+  subscribe: Subscribe<unknown>,
+  buffer = buffers.none()
+) {
+  return eventChannel(subscribe, buffer);
+}
+
+export function createSocketSaga<
+  RequestType,
+  RequestPayload,
+  SuccessType,
+  SuccessPayload,
+  FailureType,
+  FailurePayload
+>(
+  asyncAction: AsyncActionCreatorBuilder<
+    [RequestType, [RequestPayload, undefined]],
+    [SuccessType, [SuccessPayload, undefined]],
+    [FailureType, [FailurePayload, undefined]]
+  >,
+  subscribe: any,
+  buffer = buffers.none()
+) {
+  return function* saga() {
+    let channel: SuccessPayload;
+    try {
+      channel = yield call(createSocketChannel, subscribe, buffer);
+      yield put(asyncAction.success(channel));
+    } catch (err) {
+      console.error(err);
     }
   };
 }

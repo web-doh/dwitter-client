@@ -48,13 +48,16 @@ export default class HttpClient implements Http {
   }
 
   async axios(url: string, options: AxiosRequestConfig) {
+    const { method, headers, data } = options;
     try {
       const res = await this.client({
         url,
-        ...options,
+        method,
         headers: {
+          ...headers,
           "dwitter-csrf-token": this.getCsrfToken(),
         },
+        data,
       });
 
       return res;

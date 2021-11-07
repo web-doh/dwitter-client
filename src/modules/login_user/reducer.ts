@@ -7,9 +7,11 @@ import {
   LOGOUT,
   logoutAsync,
   ME,
+  meAsync,
   SIGNUP,
   signupAsync,
   CSRF,
+  csrfAsync,
 } from "./actions";
 import { createAsyncReducer } from "../../util/asyncUtils";
 
@@ -46,16 +48,15 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
       isLoading: false,
     };
   },
-  [LOGOUT.SUCCESS]: (state) => ({
-    ...state,
-    loginUser: null,
-    isLoading: false,
-    csrfToken: null,
-    token: null,
-  }),
-  [ME.REQUEST]: (state) => ({
-    ...state,
-  }),
+  [LOGOUT.SUCCESS]: (state) => {
+    return {
+      ...state,
+      loginUser: null,
+      isLoading: false,
+      csrfToken: null,
+    };
+  },
+
   [ME.SUCCESS]: (state, { payload }) => {
     const { username, profile_url, token } = payload.data;
     return {
@@ -68,13 +69,7 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
       isLoading: false,
     };
   },
-  [ME.FAILURE]: (state, { payload }) => ({
-    ...state,
-    errorMessage: payload.message,
-  }),
-  [CSRF.REQUEST]: (state) => ({
-    ...state,
-  }),
+
   [CSRF.SUCCESS]: (state, { payload }) => {
     const { csrfToken } = payload.data;
     return {
@@ -83,14 +78,12 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
       csrfToken,
     };
   },
-  [CSRF.FAILURE]: (state, { payload }) => ({
-    ...state,
-    errorMessage: payload.message,
-  }),
 
   ...createAsyncReducer(signupAsync),
   ...createAsyncReducer(loginAsync),
   ...createAsyncReducer(logoutAsync),
+  ...createAsyncReducer(meAsync),
+  ...createAsyncReducer(csrfAsync),
 });
 
 export default loginUser;
