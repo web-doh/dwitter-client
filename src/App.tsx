@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import styles from "./app.module.css";
 import Header from "./components/header/header";
-import LoadingSpinner from "./components/loading_spinner/loading_spinner";
 import useUser from "./hooks/useUser";
 import History from "./pages/history/history";
 import Home from "./pages/home/home";
@@ -20,18 +19,14 @@ function App({ tweetService }: AppProps) {
   const [isAuthenticated, _] = useState(() =>
     localStorage.getItem("isAuthenticated") ? true : false
   );
-  const {
-    loginUser: { isLoading },
-    onMe,
-    onCsrfToken,
-  } = useUser();
+  const { onMe, onCsrfToken } = useUser();
 
   useEffect(() => {
-    onCsrfToken();
+    isAuthenticated && onCsrfToken();
   }, [useUser]);
 
   useEffect(() => {
-    onMe();
+    isAuthenticated && onMe();
   }, [useUser]);
 
   return (
@@ -39,34 +34,28 @@ function App({ tweetService }: AppProps) {
       <Header />
 
       <main className={styles.main}>
-        {isLoading ? (
-          <div className={styles.info}>
-            <LoadingSpinner size="5rem" />
-          </div>
-        ) : (
-          <Switch>
-            <PrivateRoute
-              exact
-              path={["/", "/home", "/tweets"]}
-              isAuthenticated={isAuthenticated}
-            >
-              <Home tweetService={tweetService} />
-            </PrivateRoute>
-            <PrivateRoute
-              exact
-              path={["/history", "/tweets/:username"]}
-              isAuthenticated={isAuthenticated}
-            >
-              <History tweetService={tweetService} />
-            </PrivateRoute>
-            <Route exact path="/login">
-              {isAuthenticated ? <Redirect to="/" /> : <Login />}
-            </Route>
-            <Route path={["*", "/not-found"]}>
-              <NotFound />
-            </Route>
-          </Switch>
-        )}
+        <Switch>
+          <PrivateRoute
+            exact
+            path={["/", "/home", "/tweets"]}
+            isAuthenticated={isAuthenticated}
+          >
+            <Home tweetService={tweetService} />
+          </PrivateRoute>
+          <PrivateRoute
+            exact
+            path={["/history", "/tweets/:username"]}
+            isAuthenticated={isAuthenticated}
+          >
+            <History tweetService={tweetService} />
+          </PrivateRoute>
+          <Route exact path="/login">
+            {isAuthenticated ? <Redirect to="/" /> : <Login />}
+          </Route>
+          <Route path={["*", "/not-found"]}>
+            <NotFound />
+          </Route>
+        </Switch>
       </main>
     </div>
   );

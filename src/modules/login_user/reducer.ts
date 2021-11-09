@@ -57,6 +57,10 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
     };
   },
 
+  [ME.REQUEST]: (state) => ({
+    ...state,
+  }),
+
   [ME.SUCCESS]: (state, { payload }) => {
     const { username, profile_url, token } = payload.data;
     return {
@@ -69,6 +73,11 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
       isLoading: false,
     };
   },
+
+  [ME.FAILURE]: (state, { payload }) => ({
+    ...state,
+    errorMessage: payload.message,
+  }),
 
   [CSRF.REQUEST]: (state) => ({
     ...state,
@@ -91,7 +100,6 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
   ...createAsyncReducer(signupAsync),
   ...createAsyncReducer(loginAsync),
   ...createAsyncReducer(logoutAsync),
-  ...createAsyncReducer(meAsync),
 });
 
 export default loginUser;
