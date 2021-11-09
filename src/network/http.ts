@@ -22,9 +22,9 @@ const defaultRetryConfig: retryConfig = {
 export default class HttpClient implements Http {
   private readonly client: AxiosInstance;
   constructor(
-    private readonly baseURL: string,
+    baseURL: string,
     private readonly getCsrfToken: Function,
-    private readonly config: retryConfig = defaultRetryConfig
+    config: retryConfig = defaultRetryConfig
   ) {
     this.client = axios.create({
       baseURL,

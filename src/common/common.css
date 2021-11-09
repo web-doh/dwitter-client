@@ -38,6 +38,10 @@ input {
   font-size: fontRegular;
 }
 
+label {
+  cursor: text;
+}
+
 textarea {
   width: 100%;
   padding: sizeRegular 0;

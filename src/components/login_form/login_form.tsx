@@ -42,6 +42,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
           <input
             type="text"
             className={styles.input}
+            id="username"
             name="username"
             value={username}
             required
@@ -63,6 +64,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
           <input
             type="password"
             className={styles.input}
+            id="password"
             name="password"
             value={password}
             required

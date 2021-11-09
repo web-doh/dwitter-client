@@ -25,6 +25,12 @@ export const DELETE_TWEET = {
   FAILURE: "tweets/DELETE_TWEET_FAILURE",
 };
 
+export const LISTEN_TWEET = {
+  REQUEST: "tweets/LISTEN_TWEET_REQUEST",
+  SUCCESS: "tweets/LISTEN_TWEET_SUCCESS",
+  FAILURE: "tweets/LISTEN_TWEET_FAILURE",
+};
+
 // action 비동기 생성 함수
 export const getAsync = createAsyncAction(
   GET_TWEETS.REQUEST,
@@ -49,3 +55,9 @@ export const deleteAsync = createAsyncAction(
   DELETE_TWEET.SUCCESS,
   DELETE_TWEET.FAILURE
 )<number, AxiosResponse, AxiosError>();
+
+export const listenAsync = createAsyncAction(
+  LISTEN_TWEET.REQUEST,
+  LISTEN_TWEET.SUCCESS,
+  LISTEN_TWEET.FAILURE
+)<string, AxiosResponse, AxiosError>();

@@ -6,10 +6,12 @@ import {
   GET_TWEETS,
   POST_TWEET,
   UPDATE_TWEET,
+  LISTEN_TWEET,
   getAsync,
   postAsync,
   updateAsync,
   deleteAsync,
+  listenAsync,
 } from "./actions";
 import { tweet, TweetAction, TweetState } from "./types";
 import { createAsyncReducer } from "../../util/asyncUtils";
@@ -61,10 +63,20 @@ const tweetsReducer = createReducer<TweetState, TweetAction>(initialState, {
       isLoading: false,
     };
   },
+
+  [LISTEN_TWEET.SUCCESS]: (state, { payload }) => {
+    const tweets = (payload as AxiosResponse).data as Array<tweet>;
+    return {
+      ...state,
+      tweets,
+      isLoading: false,
+    };
+  },
   ...createAsyncReducer(getAsync),
   ...createAsyncReducer(postAsync),
   ...createAsyncReducer(updateAsync),
   ...createAsyncReducer(deleteAsync),
+  ...createAsyncReducer(listenAsync),
 });
 
 export default tweetsReducer;

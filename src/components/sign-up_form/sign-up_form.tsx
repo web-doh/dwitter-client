@@ -49,6 +49,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="text"
             className={styles.input}
+            id="username"
             name="username"
             value={username}
             required
@@ -70,6 +71,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="password"
             className={styles.input}
+            id="password1"
             name="password1"
             value={password1}
             required
@@ -91,6 +93,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="password"
             className={styles.input}
+            id="password2"
             name="password2"
             value={password2}
             required
@@ -109,6 +112,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="text"
             className={styles.input}
+            id="name"
             name="name"
             value={name}
             required
@@ -128,6 +132,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="email"
             className={styles.input}
+            id="email"
             name="email"
             value={email}
             required
@@ -151,6 +156,7 @@ const SignUpForm = ({ onSignUp, isLoading }: SignUpFormProps) => {
           <input
             type="text"
             className={styles.input}
+            id="profile_url"
             name="profile_url"
             value={profile_url}
             onChange={handleChange}

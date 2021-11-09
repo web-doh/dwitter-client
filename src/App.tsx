@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import styles from "./app.module.css";
@@ -17,14 +17,20 @@ type AppProps = {
 };
 
 function App({ tweetService }: AppProps) {
+  const [isAuthenticated, _] = useState(() =>
+    localStorage.getItem("isAuthenticated") ? true : false
+  );
   const {
-    loginUser: { loginUser, isLoading },
+    loginUser: { isLoading },
     onMe,
     onCsrfToken,
   } = useUser();
 
   useEffect(() => {
     onCsrfToken();
+  }, [useUser]);
+
+  useEffect(() => {
     onMe();
   }, [useUser]);
 
@@ -33,28 +39,28 @@ function App({ tweetService }: AppProps) {
       <Header />
 
       <main className={styles.main}>
-        {isLoading && !loginUser ? (
+        {isLoading ? (
           <div className={styles.info}>
             <LoadingSpinner size="5rem" />
           </div>
         ) : (
           <Switch>
             <PrivateRoute
-              isAuthenticated={loginUser ? true : false}
               exact
-              path={["/", "/home"]}
+              path={["/", "/home", "/tweets"]}
+              isAuthenticated={isAuthenticated}
             >
               <Home tweetService={tweetService} />
             </PrivateRoute>
             <PrivateRoute
-              isAuthenticated={loginUser ? true : false}
               exact
               path={["/history", "/tweets/:username"]}
+              isAuthenticated={isAuthenticated}
             >
               <History tweetService={tweetService} />
             </PrivateRoute>
             <Route exact path="/login">
-              {loginUser ? <Redirect to="/" /> : <Login />}
+              {isAuthenticated ? <Redirect to="/" /> : <Login />}
             </Route>
             <Route path={["*", "/not-found"]}>
               <NotFound />

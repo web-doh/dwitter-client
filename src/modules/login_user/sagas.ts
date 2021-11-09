@@ -1,10 +1,10 @@
-import { AxiosResponse } from "axios";
 import { takeEvery } from "@redux-saga/core/effects";
 
 import { fetchCsrfToken } from "../../hooks/useUser";
 import HttpClient from "../../network/http";
 import AuthService from "../../service/auth";
 import { createAsyncSaga } from "../../util/asyncUtils";
+import Storage from "../../util/storage";
 
 import {
   signupAsync,
@@ -14,6 +14,7 @@ import {
   csrfAsync,
 } from "./actions";
 
+const isAuthStorage = new Storage("isAuthenticated");
 const baseURL = process.env.REACT_APP_BASE_URL as string;
 const authService = new AuthService({
   baseURL,
@@ -21,15 +22,13 @@ const authService = new AuthService({
   httpConstructor: HttpClient,
 });
 
-function loginSuccessHandler(payload: AxiosResponse) {
-  const { username, profile_url } = payload.data;
-
-  localStorage.setItem("user", JSON.stringify({ username, profile_url }));
-  window.location.replace("/");
+function loginSuccessHandler() {
+  isAuthStorage.saveItem("true");
+  window.location.href = "/";
 }
 
 function logoutSuccessHandler() {
-  localStorage.removeItem("user");
+  isAuthStorage.removeItem();
   window.location.reload();
 }
 

@@ -70,6 +70,10 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
     };
   },
 
+  [CSRF.REQUEST]: (state) => ({
+    ...state,
+  }),
+
   [CSRF.SUCCESS]: (state, { payload }) => {
     const { csrfToken } = payload.data;
     return {
@@ -79,11 +83,15 @@ const loginUser = createReducer<UserState, UserAction>(initialState, {
     };
   },
 
+  [CSRF.FAILURE]: (state, { payload }) => ({
+    ...state,
+    errorMessage: payload.message,
+  }),
+
   ...createAsyncReducer(signupAsync),
   ...createAsyncReducer(loginAsync),
   ...createAsyncReducer(logoutAsync),
   ...createAsyncReducer(meAsync),
-  ...createAsyncReducer(csrfAsync),
 });
 
 export default loginUser;
