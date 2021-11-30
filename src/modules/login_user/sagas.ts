@@ -4,7 +4,7 @@ import { fetchCsrfToken } from "../../hooks/useUser";
 import HttpClient from "../../network/http";
 import AuthService from "../../service/auth";
 import { createAsyncSaga } from "../../util/asyncUtils";
-import Storage from "../../util/storage";
+import StorageImpl from "../../util/storage";
 
 import {
   signupAsync,
@@ -14,21 +14,19 @@ import {
   csrfAsync,
 } from "./actions";
 
-const isAuthStorage = new Storage("isAuthenticated");
 const baseURL = process.env.REACT_APP_BASE_URL as string;
 const authService = new AuthService({
   baseURL,
   getCsrfToken: () => fetchCsrfToken(),
+  authStorageConstructor: StorageImpl,
   httpConstructor: HttpClient,
 });
 
 function loginSuccessHandler() {
-  isAuthStorage.saveItem("true");
   window.location.href = "/";
 }
 
 function logoutSuccessHandler() {
-  isAuthStorage.removeItem();
   window.location.reload();
 }
 

@@ -1,4 +1,16 @@
-export default class Storage {
+export interface Storage {
+  saveItem(value: string): void;
+  getItem(): string | null;
+  removeItem(): void;
+}
+
+export type StorageConstructor = {
+  new (key: string): Storage;
+};
+
+export const AUTH_STORAGE_KEY = "isAuthenticated";
+
+export default class StorageImpl implements Storage {
   constructor(private readonly key: string) {}
 
   saveItem(value: string) {

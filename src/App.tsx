@@ -10,19 +10,19 @@ import Login from "./pages/login/login";
 import NotFound from "./pages/not_found/not_found";
 import PrivateRoute from "./routes/private_route";
 import TweetService from "./service/tweets";
+import StorageImpl from "./util/storage";
 
 type AppProps = {
   tweetService: TweetService;
+  authStorage: StorageImpl;
 };
 
-function App({ tweetService }: AppProps) {
-  const [isAuthenticated, _] = useState(() =>
-    localStorage.getItem("isAuthenticated") ? true : false
-  );
+function App({ tweetService, authStorage }: AppProps) {
+  const [isAuthenticated, _] = useState(() => authStorage.getItem() === "true");
   const { onMe, onCsrfToken } = useUser();
 
   useEffect(() => {
-    isAuthenticated && onCsrfToken();
+    onCsrfToken();
   }, [useUser]);
 
   useEffect(() => {
